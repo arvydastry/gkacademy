@@ -1,0 +1,56 @@
+<!-- XStore: Footer Builder (Elementor): „Site Logo“, Text Editor, „Menu List“ (et_menu_list), XStore „Icon List“, „Social Links“ (etheme-follow). -->
+<footer class="footer on-dark">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="footer__logo" href="{{ home or 'index.html' }}" aria-label="GK Academy: pradžios puslapis"><img src="assets/img/brand/logo-white.png" width="354" height="105" alt="GK Academy" loading="lazy"></a>
+        <p>{{ site.brand.slogan }}.</p>
+        <ul class="footer__social">
+          <li><a href="{{ site.contacts.instagram }}" target="_blank" rel="noopener" aria-label="GK Academy „Instagram“ paskyra">{{ icon('instagram-logo') }}</a></li>
+          <li><a href="{{ site.contacts.facebook }}" target="_blank" rel="noopener" aria-label="GK Academy „Facebook“ puslapis">{{ icon('facebook-logo') }}</a></li>
+          <li><button type="button" data-open="video" aria-label="Žiūrėti vaizdo pristatymą">{{ icon('youtube-logo') }}</button></li>
+        </ul>
+      </div>
+
+      <nav class="footer__col" aria-label="Mokymų sritys">
+        <h2>Mokymai</h2>
+        <ul>
+          {% for cat in site.categories %}
+          <li><a href="{{ home }}#katalogas" data-cat-link="{{ cat.id }}">{{ cat.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Akademija">
+        <h2>Akademija</h2>
+        <ul>
+          <li><a href="{{ home }}#tvarkarastis">Tvarkaraštis</a></li>
+          <li><a href="{{ home }}#finansavimas">Finansavimas</a></li>
+          <li><a href="{{ home }}#akademija">Apie akademiją</a></li>
+          <li><a href="{{ home }}#galerija">Galerija</a></li>
+          <li><a href="{{ home }}#atsiliepimai">Atsiliepimai</a></li>
+          <li><a href="{{ home }}#duk">Dažni klausimai</a></li>
+          <li><a href="{{ site.contacts.shop }}" target="_blank" rel="noopener">El. parduotuvė</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col">
+        <h2>Kontaktai</h2>
+        <ul>
+          <li><a href="tel:{{ site.contacts.phone_href }}">{{ site.contacts.phone }}</a></li>
+          <li><a href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a></li>
+          <li><a href="{{ site.contacts.map }}" target="_blank" rel="noopener">{{ site.contacts.street }}, {{ site.contacts.city }}</a></li>
+        </ul>
+        <p class="footer__cv">Nori prisijungti prie mūsų komandos? Siųsk savo CV el. paštu <a href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a>.</p>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2009–2026 {{ site.brand.legal }}. Visos teisės saugomos.</p>
+      <ul>
+        <li><a href="#" data-demo="Šis puslapis bus sukurtas kitame etape.">Registracijos ir mokėjimo taisyklės</a></li>
+        <li><a href="#" data-demo="Šis puslapis bus sukurtas kitame etape.">Privatumo politika</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

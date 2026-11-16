@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="lt" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{% block title %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% endblock %}">
+<!-- Demo versija klientui: prieš tikrą paleidimą šią žymą išimti. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0C0C0D">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="assets/img/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/brand/favicon-180.png">
+<link rel="preload" href="assets/fonts/NotoSerifDisplay.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/HankenGrotesk.woff2" as="font" type="font/woff2" crossorigin>
+{% block preload %}{% endblock %}
+<link rel="stylesheet" href="assets/css/base.css">
+{% block css %}{% endblock %}
+<!-- „js“ klasė įjungia judesį; „is-static“ jį išjungia (?static=1, „mažiau judesio“ arba jei scenarijai neįsikrovė per 4 s). -->
+<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');if(/[?&]static=1/.test(location.search)||matchMedia('(prefers-reduced-motion: reduce)').matches)c.add('is-static');setTimeout(function(){if(!window.GKReady)c.add('is-static')},4000)})(document)</script>
+{% block schema %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip" href="#turinys">Pereiti prie turinio</a>
+{{ sprite }}
+{% set home = '' if page == 'home' else 'index.html' %}
+{% include "partials/header.html" %}
+<main id="turinys">
+{% block main %}{% endblock %}
+</main>
+{% include "partials/footer.html" %}
+{% include "partials/overlays.html" %}
+<script>window.GK={{ gk_json }};</script>
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/core.js" defer></script>
+{% block js %}{% endblock %}
+</body>
+</html>

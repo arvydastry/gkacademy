@@ -1,0 +1,56 @@
+<!-- XStore: Header Builder (Elementor), viršutinis konteineris: Text Editor + XStore „Icon List“ + kalbų perjungiklis (WPML / Polylang valdiklis). -->
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <p class="topbar__note">Mokymai lietuvių, anglų ir rusų kalbomis</p>
+    <ul class="topbar__links">
+      <li><a href="tel:{{ site.contacts.phone_href }}">{{ icon('phone') }}{{ site.contacts.phone }}</a></li>
+      <li class="topbar__mail"><a href="mailto:{{ site.contacts.email }}">{{ icon('envelope-simple') }}{{ site.contacts.email }}</a></li>
+      <li class="topbar__shop"><a href="{{ site.contacts.shop }}" target="_blank" rel="noopener">El. parduotuvė{{ icon('arrow-up-right') }}</a></li>
+      <li class="lang" aria-label="Kalba"><span aria-current="true">LT</span><a href="#" lang="en" hreflang="en" data-demo="Anglišką versiją parengsime patvirtinus projektą.">EN</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- XStore: Header Builder (Elementor): „Site Logo“, „Nav Menu“, „Mega Menu“ (theme-etheme_mega_menu), „Popup Search“ arba „Header Ajax Search“, „My Account“, „Wishlist“, „Shopping Cart“ (off-canvas), „Mobile Menu“; konteinerio sticky tipas „smart“. -->
+<header class="header" data-header>
+  <div class="wrap header__in">
+    <a class="logo" href="{{ home or 'index.html' }}" aria-label="GK Academy: pradžios puslapis"><img src="assets/img/brand/logo-ink.png" width="354" height="105" alt="GK Academy"></a>
+
+    <nav class="nav" aria-label="Pagrindinis meniu">
+      <ul>
+        <li><button class="nav__btn" type="button" aria-expanded="false" aria-controls="mega" data-mega-toggle>Mokymai{{ icon('caret-down') }}</button></li>
+        <li><a href="{{ home }}#tvarkarastis">Tvarkaraštis</a></li>
+        <li><a href="{{ home }}#finansavimas">Finansavimas</a></li>
+        <li><a href="{{ home }}#akademija">Akademija</a></li>
+        <li><a href="{{ home }}#kontaktai">Kontaktai</a></li>
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <button class="tools__b" type="button" data-open="search" aria-label="Ieškoti mokymų">{{ icon('magnifying-glass') }}</button>
+      <a class="tools__b tools__b--acc" href="#" data-demo="Mokinio paskyra (registracijos, mokėjimai, dokumentai) bus sukurta kitame etape." aria-label="Paskyra">{{ icon('user') }}</a>
+      <a class="tools__b" href="{{ home }}#katalogas" data-wish-open aria-label="Įsimintos programos">{{ icon('heart') }}<span class="tools__n" data-wish-count hidden>0</span></a>
+      <button class="tools__b" type="button" data-open="cart" aria-label="Rezervacijos">{{ icon('shopping-bag') }}<span class="tools__n" data-cart-count hidden>0</span></button>
+      <button class="tools__b tools__b--menu" type="button" data-open="menu" aria-label="Meniu">{{ icon('list') }}</button>
+    </div>
+  </div>
+
+  <!-- XStore: „Mega Menu“ turinys – „Static Block“ (etheme_static_block) su „Menu List“ (et_menu_list) valdikliais kiekvienai sričiai. -->
+  <div class="mega" id="mega" hidden>
+    <div class="wrap mega__in">
+      <div class="mega__cols">
+        {% for cat in site.categories %}
+        <div class="mega__g">
+          <a class="mega__cat" href="{{ home }}#katalogas" data-cat-link="{{ cat.id }}">{{ cat.name }}</a>
+          <ul>
+            {% for c in courses if c.cat == cat.id %}
+            <li><a{% if c.page %} href="{{ c.page }}"{% else %} href="#" data-demo="Šios programos puslapis bus sukurtas patvirtinus projektą."{% endif %}>{{ c.short }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+      <a class="mega__all" href="{{ home }}#katalogas" data-cat-link="">Visi mokymai ({{ courses|length }}){{ icon('arrow-right') }}</a>
+    </div>
+  </div>
+</header>

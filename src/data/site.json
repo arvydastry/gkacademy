@@ -1,0 +1,388 @@
+{
+  "brand": {
+    "name": "GK Academy",
+    "legal": "Grožio kultas, MB",
+    "since": 2009,
+    "slogan": "Tavo grožio kelias prasideda čia",
+    "lead": "Nuo 2009 metų padedame atrasti savo pašaukimą, įgyti pasitikėjimo savimi ir tapti tikromis grožio srities profesionalėmis."
+  },
+  "contacts": {
+    "phone": "+370 676 87272",
+    "phone_href": "+37067687272",
+    "email": "info@gkacademy.lt",
+    "email2": "info@groziokultas.lt",
+    "street": "V. Grybo g. 17-130",
+    "city": "Vilnius",
+    "zip": "LT-10318",
+    "place": "Tarptautinis mokymų centras „GK Academy“, V. Grybo g. 17, Vilnius",
+    "map": "https://www.google.com/maps/search/?api=1&query=V.+Grybo+g.+17%2C+Vilnius",
+    "instagram": "https://www.instagram.com/gkacademy_official/",
+    "instagram_name": "@gkacademy_official",
+    "facebook": "https://www.facebook.com/groziokultas/",
+    "shop": "http://www.groziokultas.lt/lt",
+    "shop_name": "groziokultas.lt",
+    "video": "btZhNrubBYc"
+  },
+  "deposit_percent": 20,
+  "seats_demo": {
+    "pmu|2026-12-07": 1,
+    "antakiu-dizainas|2026-11-25": 2,
+    "antakiu-dizainas|2026-12-01": 1,
+    "antakiu-dizainas|2026-12-08": 0,
+    "antakiu-dizainas|2026-12-16": 2,
+    "makiazas-sau|2026-11-27": 1,
+    "makiazas-sau|2026-12-28": 3,
+    "makiazas-sau|2026-12-30": 2
+  },
+  "marquee": [
+    "Nuo 2009 metų",
+    "80–90 % mokymų laiko – praktika",
+    "Tarptautinis diplomas anglų kalba",
+    "Programos įtrauktos į AIKOS",
+    "Mokymai lietuvių, anglų ir rusų kalbomis",
+    "Finansavimas iki 100 %",
+    "Visus mokymus galima įsigyti išsimokėtinai"
+  ],
+  "categories": [
+    { "id": "pmu", "name": "Ilgalaikis makiažas", "img": "pmu-lupos", "pos": "50% 60%" },
+    { "id": "blakstienos", "name": "Blakstienos ir antakiai", "img": "blakstienos-rezultatas", "pos": "40% 50%" },
+    { "id": "dermo", "name": "Dermopigmentacija", "img": "dermo-praktika", "pos": "40% 40%" },
+    { "id": "tattoo", "name": "Tatuiruotės ir auskarai", "img": "tattoo-drugelis", "pos": "50% 55%" },
+    { "id": "depiliacija", "name": "Depiliacija", "img": "depiliacija-pasta", "pos": "50% 30%" },
+    { "id": "masazas", "name": "Masažas ir veido priežiūra", "img": "masazas-veidas", "pos": "50% 45%" },
+    { "id": "plaukai", "name": "Plaukai", "img": "plaukai-rezultatas", "pos": "50% 40%" },
+    { "id": "makiazas", "name": "Makiažas ir manikiūras", "img": "makiazas-veidrodelis", "pos": "50% 30%" },
+    { "id": "meistrams", "name": "Meistrams ir treneriams", "img": "meistrams-fotografavimas", "pos": "50% 45%" }
+  ],
+  "courses": [
+    { "id": "pmu", "cat": "pmu", "title": "Ilgalaikio makiažo mokymai: antakiai, lūpos, akys", "short": "Ilgalaikis makiažas: antakiai, lūpos, akys", "old": "/lt/mokymai/ilgalaikio-permanentinio-makiazo-kursai-antakiai-lupos-akys", "aud": "pro", "days": [3, 6], "dur": "3–6 dienos", "fmt": ["g", "i"], "group": 1200, "ind": 1500, "group_size": 2, "qual": "PMU Master and PMU Removal Specialist", "img": "pmu-procedura", "page": "mokymai-ilgalaikis-makiazas.html" },
+    { "id": "pmu-antakiai", "cat": "pmu", "title": "Ilgalaikio makiažo mokymai: antakiai", "short": "Ilgalaikis makiažas: antakiai", "note": "BASIC, 1 lygis", "old": "/lt/mokymai/ilgalaikis-antakiu-makiazas", "aud": "pro", "days": [4, 6], "dur": "4–6 dienos", "fmt": ["g", "i"], "group": 1200, "ind": 1800, "group_size": 2, "img": "pmu-antakiai" },
+    { "id": "pmu-akys-lupos", "cat": "pmu", "title": "Ilgalaikio makiažo mokymai: akių kontūras ir lūpos", "short": "Ilgalaikis makiažas: akys ir lūpos", "note": "ADVANCED, 2 lygis", "old": "/lt/mokymai/akiu-konturo-ir-lupu-ilgalaikis-makiazas", "aud": "pro", "days": [3, 3], "dur": "3 dienos", "fmt": ["i"], "ind": 1200, "img": "pmu-akys" },
+    { "id": "pmu-plaukeline", "cat": "pmu", "title": "Antakių plaukelinė technika aparatu „Hair by Hair“", "short": "Plaukelinė technika „Hair by Hair“", "old": "/lt/mokymai/antakiu-ilgalaikis-makiazas-plaukeline-technika-aparatu", "aud": "pro", "days": [2, 3], "dur": "2–3 dienos", "fmt": ["i"], "ind": 1500, "qual": "Eyebrows Permanent Makeup Expert", "img": "hero-linija" },
+    { "id": "pmu-masterclass", "cat": "pmu", "title": "Ilgalaikio makiažo „MasterClass“ pažengusioms", "short": "Ilgalaikio makiažo „MasterClass“", "old": "/lt/mokymai/ilgalaikio-makiazo-masterclass", "aud": "pro", "days": [1, 3], "dur": "1–3 dienos", "fmt": ["i"], "ind": 600, "qual": "Permanent Makeup Expert", "img": "pmu-grupe" },
+    { "id": "pmu-lazeris", "cat": "pmu", "title": "Ilgalaikio makiažo ir tatuiruočių šalinimas lazeriu", "short": "Šalinimas lazeriu", "old": "/lt/mokymai/ilgalaikio-makiazo-salinimo-kursai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["i"], "ind": 500, "img": "pmu-lazeris" },
+    { "id": "pmu-removeriai", "cat": "pmu", "title": "Ilgalaikio makiažo ir tatuiruočių šalinimas removeriais", "short": "Šalinimas removeriais", "old": "/lt/mokymai/263-ilgalaikio-makiazo-tattoo-salinim0-mokymai", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": ["i"], "ind": 500, "img": "pmu-lupos-2" },
+    { "id": "pmu-treneris", "cat": "pmu", "title": "Ilgalaikio makiažo trenerio mokymai", "short": "Ilgalaikio makiažo trenerio mokymai", "old": "/lt/mokymai/319-ilgalaikio-makiazo-trenerio-mokymai", "aud": "pro", "days": [2, 3], "dur": "2–3 dienos", "fmt": [], "from": 4000, "qual": "Permanent Makeup Trainer", "img": "akademija-diplomo-pasirasymas" },
+
+    { "id": "blakstienu-priauginimas", "cat": "blakstienos", "title": "Blakstienų priauginimas: klasika, „Volume“ ir LED technika", "short": "Blakstienų priauginimas", "old": "/lt/mokymai/blakstienu-priauginimo-klasika-volume-technika", "aud": "pro", "days": [1, 4], "dur": "1–4 dienos", "fmt": ["g", "i"], "group": 280, "ind": 360, "img": "blakstienos-mokymas" },
+    { "id": "new-trend", "cat": "blakstienos", "title": "„New Trend“ blakstienų stilizavimas", "short": "„New Trend“ blakstienų stilizavimas", "old": "/lt/mokymai/new-trend-blakstienu-stilizavimo", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": [], "from": 360, "img": "blakstienos-rezultatas" },
+    { "id": "blakstienu-laminavimas", "cat": "blakstienos", "title": "Blakstienų laminavimas", "short": "Blakstienų laminavimas", "old": "/lt/mokymai/blakstienu-laminavimas-rietimas", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["g", "i"], "group": 240, "ind": 300, "group_size": 2, "qual": "Lash Lifting", "img": "blakstienos-rezultatas" },
+    { "id": "antakiu-blakstienu-laminavimas", "cat": "blakstienos", "title": "Antakių ir blakstienų laminavimas", "short": "Antakių ir blakstienų laminavimas", "old": "/lt/mokymai/antakiu-ir-blakstienu-laminavimo-mokymai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["g", "i"], "group": 220, "ind": 340, "qual": "Lash and Brows Lifting", "img": "dizainas-rezultatas" },
+    { "id": "antakiu-dizainas", "cat": "blakstienos", "title": "Antakių dizaino, architektūros ir laminavimo mokymai", "short": "Antakių dizainas, architektūra ir laminavimas", "old": "/lt/mokymai/mokymai-antakiu-formavimas", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["g", "i"], "group": 280, "ind": 380, "qual": "The Browist", "img": "dizainas-dazymas", "page": "mokymai-antakiu-dizainas.html" },
+
+    { "id": "aureole", "cat": "dermo", "title": "Aureolės mikropigmentacija", "short": "Aureolės mikropigmentacija", "old": "/lt/mokymai/aureoles-dermopigmentacija", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["i"], "ind": 1000, "qual": "Areola Micropigmentation Artist", "img": "dermo-praktika" },
+    { "id": "randai", "cat": "dermo", "title": "Randų ir vitiligo dermopigmentacija", "short": "Randų ir vitiligo dermopigmentacija", "old": "/lt/mokymai/randu-dermopigmentacija", "aud": "pro", "days": [2, 2], "dur": "2 dienos", "fmt": ["i"], "ind": 1500, "was": 2000, "qual": "Scars and Vitiligo Dermopigmentation Artist", "img": "dermo-praktika" },
+    { "id": "skalpas", "cat": "dermo", "title": "Skalpo dermopigmentacija", "short": "Skalpo dermopigmentacija", "old": "/lt/mokymai/skalpo-dermopigmentacijos", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["i"], "ind": 1000, "qual": "Scalp Dermopigmentation Artist", "img": "dermo-praktika" },
+
+    { "id": "small-tattoo", "cat": "tattoo", "title": "„Small tattoo“ mokymai", "short": "„Small tattoo“", "old": "/lt/mokymai/small-tattoo-mokymai", "aud": "pro", "days": [2, 7], "dur": "2–7 dienos", "fmt": ["g"], "from": 900, "group_size": 2, "qual": "Small Tattoo Artist", "img": "tattoo-mokymas" },
+    { "id": "auskarai", "cat": "tattoo", "title": "Auskarų vėrimas", "short": "Auskarų vėrimas", "old": "/lt/mokymai/auskaru-verimo", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": ["g", "i"], "group": 300, "ind": 400, "group_size": 2, "qual": "Piercing Artist" },
+    { "id": "kuno-auskarai", "cat": "tattoo", "title": "Kūno auskarų vėrimas", "short": "Kūno auskarų vėrimas", "old": "/lt/mokymai/325-kuno-auskaru-verimo-mokymai", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": ["i"], "ind": 1000, "qual": "Body Piercing Artist" },
+
+    { "id": "depiliacija", "cat": "depiliacija", "title": "Kūno ir veido depiliacija vašku ir cukrumi", "short": "Kūno ir veido depiliacija", "old": "/lt/mokymai/kuno-veido-depiliacijos-mokymai", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": ["g", "i"], "group": 260, "ind": 360, "group_size": 2, "qual": "Body Sugaring and Waxing Specialist" },
+    { "id": "vyru-depiliacija", "cat": "depiliacija", "title": "Vyrų depiliacija vaškais ir cukrumi", "short": "Vyrų depiliacija", "old": "/lt/mokymai/vyru-depiliacijos-vaskais-ir-cukrumi", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": ["i"], "ind": 700 },
+
+    { "id": "veido-masazas", "cat": "masazas", "title": "Klasikinis ir liftinguojantis veido masažas", "short": "Klasikinis ir liftinguojantis veido masažas", "old": "/lt/mokymai/klasikinio-veido-masazo", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["i"], "ind": 300, "qual": "Facial Massage Specialist", "img": "masazas-veidas" },
+    { "id": "kobido", "cat": "masazas", "title": "„Kobido“ veido masažas", "short": "„Kobido“ veido masažas", "old": "/lt/mokymai/333-kobido-veido-masazo-mokymai", "aud": "pro", "days": [2, 3], "dur": "2–3 dienos", "fmt": [], "from": 660, "img": "masazas-mokymas" },
+    { "id": "limfodrenazinis", "cat": "masazas", "title": "Limfodrenažinis veido masažas", "short": "Limfodrenažinis veido masažas", "old": "/lt/mokymai/334-limfodrenazinio-veido-masazo-mokymai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["g", "i"], "group": 200, "ind": 300 },
+    { "id": "renew-skin", "cat": "masazas", "title": "Aparatinės veido ir kūno procedūros „Renew Skin“", "short": "Aparatinės procedūros „Renew Skin“", "old": "/lt/mokymai/330-aparatines-veido-ir-kuno-proceduros-renew-skin-mokymai", "aud": "pro", "days": [1, 3], "dur": "1–3 dienos", "fmt": ["i"], "ind": 300, "qual": "Face and Body Aesthetic Treatment Specialist", "img": "masazas-mokymas" },
+    { "id": "savimasazas", "cat": "masazas", "title": "Savimasažo mokymai", "short": "Savimasažas", "old": "/lt/mokymai/savimasazo", "aud": "self", "days": [0, 0], "dur": "3 valandos", "fmt": ["g", "i"], "group": 150, "ind": 200 },
+
+    { "id": "plauku-priauginimas", "cat": "plaukai", "title": "Plaukų priauginimas", "short": "Plaukų priauginimas", "old": "/lt/mokymai/plauku-priauginimo-mokymai", "aud": "pro", "days": [2, 4], "dur": "2–4 dienos", "fmt": ["i"], "ind": 800, "qual": "Hair Extensions Specialist", "img": "plaukai-mokymas" },
+    { "id": "drakoniukai", "cat": "plaukai", "title": "Kasyčių pynimas „Drakoniukai“", "short": "Kasyčių pynimas „Drakoniukai“", "old": "/lt/mokymai/kasyciu-pynimo-drakoniukai-mokymai", "aud": "pro", "days": [1, 3], "dur": "1–3 dienos", "fmt": [], "from": 350, "was": 400 },
+    { "id": "kasytes-pluostas", "cat": "plaukai", "title": "Kasyčių pynimas iš sintetinio pluošto", "short": "Kasytės iš sintetinio pluošto", "old": "/lt/mokymai/kasyciu-pynimo-is-sintetinio-pluosto-mokymai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": [], "from": 300 },
+    { "id": "afro-garbanos", "cat": "plaukai", "title": "3D afro garbanos", "short": "3D afro garbanos", "old": "/lt/mokymai/329-3d-afro-garbanu-mokymai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["g", "i"], "from": 350 },
+    { "id": "sukuosenos", "cat": "plaukai", "title": "Vestuvinės, holivudinės ir proginės šukuosenos", "short": "Proginės šukuosenos", "old": "/lt/mokymai/331-vestuviniu-holivudiniu-ir-proginiu-sukuosenu-mokymai", "aud": "pro", "days": [1, 2], "dur": "1–2 dienos", "fmt": ["i"], "ind": 300, "qual": "Hairstylist" },
+
+    { "id": "pro-makeup", "cat": "makiazas", "title": "„Pro Makeup“ profesionalaus makiažo mokymai", "short": "„Pro Makeup“ profesionalus makiažas", "old": "/lt/mokymai/335-pro-makeup-profesionalaus-makiazo-mokymai", "aud": "pro", "days": [3, 7], "dur": "3–7 dienos", "fmt": ["g", "i"], "from": 660, "group_size": 3, "img": "makiazas-pora" },
+    { "id": "makiazas-sau", "cat": "makiazas", "title": "Makiažo sau mokymai", "short": "Makiažas sau", "old": "/lt/mokymai/makiazo-sau", "aud": "self", "days": [0, 0], "dur": "3 valandos", "fmt": ["g", "i"], "group": 100, "ind": 150, "group_size": 3, "img": "makiazas-veidrodis", "page": "mokymai-makiazas-sau.html" },
+    { "id": "paaugliu-makiazas", "cat": "makiazas", "title": "Paauglių makiažas ir veido priežiūra", "short": "Paauglių makiažas ir veido priežiūra", "old": "/lt/mokymai/paaugliu-makiazo-ir-veido-prieziuros-kursai", "aud": "self", "days": [0, 0], "dur": "2–3 valandos", "fmt": ["g", "i"], "from": 150, "img": "makiazas-sepetelis" },
+    { "id": "manikiuras", "cat": "makiazas", "title": "Baziniai manikiūro mokymai", "short": "Bazinis manikiūras", "old": "/lt/mokymai/332-baziniai-manikiuro-mokymai", "aud": "pro", "days": [1, 3], "dur": "1–3 dienos", "fmt": ["i"], "ind": 300, "qual": "Manicure Specialist" },
+
+    { "id": "fotografavimas", "cat": "meistrams", "title": "Fotografavimas telefonu grožio meistrams", "short": "Fotografavimas telefonu", "old": "/lt/mokymai/fotografavimo-telefonu", "aud": "pro", "days": [0, 0], "dur": "4 akademinės valandos", "fmt": [], "from": 200, "img": "meistrams-fotografavimas" },
+    { "id": "treneris", "cat": "meistrams", "title": "Trenerio mokymai", "short": "Trenerio mokymai", "old": "/lt/mokymai/306-trenerio-mokymai", "aud": "pro", "days": [1, 1], "dur": "1 diena", "fmt": [], "from": 1000, "qual": "Trainer", "img": "akademija-diplomai" }
+  ],
+  "schedule": {
+    "auskarai": ["2026-11-10", "2026-11-27", "2026-12-01", "2026-12-17"],
+    "small-tattoo": ["2026-11-16/2026-11-19", "2026-12-07/2026-12-10"],
+    "blakstienu-laminavimas": ["2026-11-05", "2026-11-23", "2026-12-02", "2026-12-15"],
+    "antakiu-blakstienu-laminavimas": ["2026-11-11", "2026-11-17", "2026-11-25", "2026-12-03", "2026-12-17", "2026-12-22"],
+    "blakstienu-priauginimas": ["2026-11-16/2026-11-17", "2026-11-26", "2026-12-03/2026-12-04"],
+    "new-trend": ["2026-11-27", "2026-12-07"],
+    "antakiu-dizainas": ["2026-11-11", "2026-11-16", "2026-11-25", "2026-12-01", "2026-12-08", "2026-12-16"],
+    "pmu": ["2026-11-09/2026-11-13", "2026-12-07/2026-12-11"],
+    "pmu-lazeris": ["2026-11-17/2026-11-18", "2026-11-30", "2026-12-10", "2026-12-22"],
+    "plauku-priauginimas": ["2026-11-19/2026-11-20", "2026-12-07/2026-12-09", "2026-12-17/2026-12-18"],
+    "drakoniukai": ["2026-11-12/2026-11-13", "2026-12-07/2026-12-08"],
+    "depiliacija": ["2026-11-30", "2026-12-17"],
+    "manikiuras": ["2026-11-17/2026-11-19", "2026-12-14/2026-12-16"],
+    "aureole": ["2026-11-23/2026-11-25", "2026-12-28/2026-12-30"],
+    "veido-masazas": ["2026-11-25/2026-11-26", "2026-12-10/2026-12-11", "2026-12-29/2026-12-30"],
+    "kobido": ["2026-11-18", "2026-12-28/2026-12-30"],
+    "savimasazas": ["2026-11-20", "2026-12-04", "2026-12-17", "2026-12-22"],
+    "makiazas-sau": ["2026-11-13", "2026-11-27", "2026-12-28", "2026-12-30"],
+    "paaugliu-makiazas": ["2026-11-13", "2026-11-27", "2026-12-18", "2026-12-28", "2026-12-30"],
+    "pro-makeup": ["2026-11-25/2026-11-27", "2026-12-07/2026-12-09"]
+  },
+  "facts": [
+    { "num": "2009", "pre": "nuo", "text": "Nuo 2009 metų padedame atrasti pašaukimą ir tapti grožio srities profesionalėmis." },
+    { "num": "80–90 %", "pre": "", "text": "Mokymų laiko skiriama praktikai, kad įgytumėte realių įgūdžių ir pasitikėjimo savo darbu." },
+    { "num": "100 %", "pre": "iki", "text": "Mokymų kainos gali finansuoti Užimtumo tarnyba, iki 500 € – platforma „Kursuok.lt“." },
+    { "num": "3", "pre": "", "text": "Kalbos: mokymai vyksta lietuvių, anglų ir rusų kalbomis." }
+  ],
+  "statement": "Mes tikime, kad grožis – tai ne tik estetika, bet ir kūryba, drąsa bei meistrystė.",
+  "about": [
+    "Mūsų komandą sudaro diplomuoti dėstytojai, tarptautiniai teisėjai ir pripažinti ekspertai, dalijantys savo žinias, patirtį ir įkvėpimą.",
+    "Mokymų metu skiriame individualų dėmesį kiekvienam mokiniui, o konsultacijos ir pagalba tęsiamos ir po kursų."
+  ],
+  "financing": [
+    {
+      "id": "uzt",
+      "name": "Užimtumo tarnyba",
+      "amount": "iki 100 %",
+      "lead": "GK Academy mokymų programos yra patvirtintos ir finansuojamos valstybės lėšomis per Užimtumo tarnybą. Jos skirtos suaugusiesiems, norintiems įgyti naujų kompetencijų, tobulinti turimas žinias arba persikvalifikuoti.",
+      "who": [
+        "Registruoti bedarbiai arba darbo ieškantys asmenys, užsiregistravę Užimtumo tarnyboje.",
+        "Dirbantys asmenys, norintys tobulinti kvalifikaciją ar įgyti naujų kompetencijų.",
+        "Asmenys, atleisti iš darbo arba esantys profesinės pertraukos laikotarpiu.",
+        "Asmenys, dalyvaujantys trišalėse sutartyse, kai mokymus remia darbdavys."
+      ],
+      "how": [
+        "Kreipkitės į savo teritorinį Užimtumo tarnybos skyrių ir pasitarkite dėl galimybės gauti finansavimą.",
+        "Pasirinkite GK Academy programą iš patvirtintų mokymų sąrašo.",
+        "Gavę patvirtinimą, pasirašykite mokymo sutartį ir pradėkite mokytis."
+      ],
+      "link": "https://www.uzt.lt",
+      "link_name": "uzt.lt"
+    },
+    {
+      "id": "kursuok",
+      "name": "Kursuok.lt",
+      "amount": "iki 500 €",
+      "lead": "GK Academy siūlo patvirtintas valstybės finansuojamas mokymų programas suaugusiesiems. Kiekvienam dalyviui valstybė skiria iki 500 €, kurie dengia dalį arba visą kursų kainą.",
+      "who": [
+        "Jums 18–65 metai.",
+        "Dirbate pagal darbo sutartį arba savarankiškai (verslo liudijimas ar individuali veikla).",
+        "Turite profesinį arba aukštąjį išsilavinimą.",
+        "Esate Lietuvos pilietis arba turite leidimą gyventi Lietuvoje.",
+        "Dar neišnaudojote viso 500 € krepšelio (likutį galima panaudoti)."
+      ],
+      "how": [
+        "Pasirinkite kursą mūsų arba „Kursuok.lt“ svetainėje.",
+        "Užpildykite registracijos formą.",
+        "Susisieksime dėl finansavimo patvirtinimo ir jūsų vietos programoje."
+      ],
+      "link": "https://www.kursuok.lt",
+      "link_name": "kursuok.lt"
+    }
+  ],
+  "steps": [
+    { "title": "Pasirenkate programą", "text": "Kataloge matote kiekvienos programos trukmę, kainą ir artimiausias datas." },
+    { "title": "Rezervuojate vietą", "text": "Pasirenkate grupės datą arba paprašote individualios. Sumokate avansą arba visą sumą." },
+    { "title": "Mokotės praktiškai", "text": "80–90 % mokymų laiko skiriama praktikai su dėstytojos priežiūra." },
+    { "title": "Gaunate diplomą", "text": "Baigus profesinę programą įteikiamas tarptautinis diplomas anglų kalba." },
+    { "title": "Liekate su mumis", "text": "Konsultacijos ir pagalba tęsiamos ir po kursų, o priemonėms taikoma nuolaida." }
+  ],
+  "gallery": [
+    { "img": "akademija-dziaugsmas", "alt": "Mokinė džiaugiasi baigusi mokymus GK Academy registratūroje", "col": 1, "ratio": "4/3" },
+    { "img": "dizainas-mokymas", "alt": "Dėstytoja ir mokinė antakių dizaino mokymuose", "col": 1, "ratio": "3/4" },
+    { "img": "akademija-teorija", "alt": "Dėstytoja aiškina teoriją prie lentos", "col": 1, "ratio": "4/3" },
+    { "img": "blakstienos-mokymas", "alt": "Dėstytoja prižiūri mokinę blakstienų priauginimo praktikoje", "col": 2, "ratio": "3/4" },
+    { "img": "akademija-diplomai", "alt": "Mokinės su diplomais", "col": 2, "ratio": "4/3" },
+    { "img": "tattoo-mokymas", "alt": "Dėstytoja ir mokinė „Small tattoo“ mokymuose", "col": 2, "ratio": "3/4" },
+    { "img": "plaukai-mokymas", "alt": "Plaukų priauginimo praktika su modeliu", "col": 3, "ratio": "3/4" },
+    { "img": "akademija-registratura", "alt": "GK Academy registratūra su diplomais", "col": 3, "ratio": "4/3" },
+    { "img": "masazas-mokymas", "alt": "Veido masažo praktika su dėstytoja", "col": 3, "ratio": "3/4" }
+  ],
+  "reviews": [
+    { "name": "Rūta Z.", "text": "Džiaugiuosi pasirinkusi GK Academy. Profesionali komanda. Viskas aiškiai, trumpai, konkrečiai. Praktiniai užsiėmimai pranoko lūkesčius, nes gavau atsakymus į visus klausimus bei patarimus." },
+    { "name": "Loreta S.", "text": "Labai patiko, kad maksimali mokinių grupė kurso metu yra dvi mokinės: galima paklausti vos iškilus klausimui ir dėstytoja iškart prieina. Bendravimas išlieka ir po kursų." },
+    { "name": "Editu K.", "text": "Dėstytoja Roberta tiesiog nuostabi. Aiškiai ir suprantamai viską išdėstė, atmosfera be jokio streso, nuolat drąsino ir motyvavo." },
+    { "name": "Aliona V.", "text": "Nuostabi vieta mokytis. Daug informacijos, dėstytoja duoda labai daug patarimų iš savo patirties. Visas personalas labai kantrus ir malonus." }
+  ],
+  "faq": [
+    { "q": "Ar galiu mokytis neturėdama jokios patirties?", "a": "Taip. Dauguma programų skirtos pradedantiems, neturintiems jokios patirties. Jau dirbančioms meistrėms turime kvalifikacijos kėlimo programas, pavyzdžiui, „MasterClass“ ar trenerio mokymus." },
+    { "q": "Kuo skiriasi grupiniai ir individualūs mokymai?", "a": "Grupiniai mokymai vyksta pagal tvarkaraštį mažoje grupėje, dažniausiai tik dviejų mokinių. Individualių mokymų datą suderiname su jumis asmeniškai." },
+    { "q": "Ką daryti, jei tvarkaraštyje nėra man tinkamos datos?", "a": "Susisiekite su mumis: rasime ir suderinsime mokymų datą individualiai." },
+    { "q": "Kokiomis kalbomis vyksta mokymai?", "a": "Mokymai vyksta lietuvių, anglų ir rusų kalbomis. Individualių mokymų anglų arba rusų kalba kaina nurodyta kiekvienos programos puslapyje." },
+    { "q": "Ar reikia savo priemonių ir modelių?", "a": "Ne. Profesionalios sertifikuotos medžiagos, kuriomis naudojatės mokymų metu, įskaičiuotos į kainą, o modeliais praktikai pasirūpiname mes." },
+    { "q": "Ar galima mokėti dalimis?", "a": "Taip, visus mokymus galima įsigyti išsimokėtinai. Registruojantis galima sumokėti avansą, o likusią sumą – vėliau." },
+    { "q": "Ar gausiu diplomą?", "a": "Baigus profesines programas įteikiamas tarptautinis diplomas anglų kalba, pripažįstamas ne tik Lietuvoje, bet ir užsienyje. Programos patvirtintos ir įtrauktos į AIKOS sistemą, LR Suaugusiųjų švietimo registrą." },
+    { "q": "Ar mokymams galima gauti finansavimą?", "a": "Taip. Per Užimtumo tarnybą galima gauti iki 100 % finansavimą, per platformą „Kursuok.lt“ – iki 500 €. Parašykite mums ir padėsime išsiaiškinti, kuris kelias tinka jums." }
+  ],
+  "details": {
+    "pmu": {
+      "h1": "Ilgalaikio makiažo mokymai: antakiai, lūpos, akys",
+      "badge": "",
+      "lead": "Išsamūs ilgalaikio (permanentinio) makiažo mokymai neturintiems jokios patirties: populiariausios antakių, lūpų ir akių technikos bei šalinimas lazeriu. Mokotės individualiai arba tik dviejų mokinių grupėje.",
+      "intro": [
+        "Dauguma moterų renkasi ilgalaikio makiažo procedūrą dėl jos didžiausio privalumo – sutaupyti brangaus laiko kas rytą, atsisakius dekoratyvinės kosmetikos. Norint kokybiškai ir profesionaliai atlikti ilgalaikio makiažo procedūrą, ypač svarbu turėti reikiamas žinias ir tvirtą pagrindą, nuo kurių priklausys jūsų darbo kokybė ir klientų atsiliepimai.",
+        "Mokymuose išmoksite populiariausių ilgalaikio makiažo technikų, taip pat perprasite itin aktualią ilgalaikio makiažo šalinimo ir blukinimo procedūrą bei visas jos subtilybes. Tai leis jums išlikti paklausia rinkoje ir praplės klientų ratą.",
+        "Baigusios mūsų mokymus, mokinės sėkmingai darbą pradeda iškart po jų ir profesionalumo keliu žengia tvirtai ir užtikrintai."
+      ],
+      "qualification": "Ilgalaikio makiažo (antakių, lūpų ir akių) meistras ir ilgalaikio makiažo šalinimo specialistas – PMU Master and PMU Removal Specialist.",
+      "audience": ["Norintiems išmokti profesionaliai atlikti ilgalaikio makiažo procedūras ir neturintiems jokios patirties."],
+      "goals": [
+        "Perduoti sukauptą ilgametę patirtį, kurios dėka galėsite žengti profesionalumo keliu tvirtai ir užtikrintai.",
+        "Supažindinti su naujausiomis ilgalaikio makiažo priemonėmis ir įranga.",
+        "Supažindinti ir išmokyti pritaikyti naujausias pasaulyje pripažintas technikas, atsižvelgiant į kliento poreikius.",
+        "Išmokyti saugiai atlikti antakių, akių kontūro ir lūpų ilgalaikio makiažo procedūras ir jų korekciją, parenkant tinkamiausią techniką ir atlikimo būdą.",
+        "Išmokyti perdengimo, blukinimo ir pigmento išėmimo procedūrų.",
+        "Išmokyti atlikti procedūrą aukščiausiu klientų aptarnavimo lygiu, laikantis visų normų ir reikalavimų.",
+        "Išmokyti pritraukti naujus klientus ir išlaikyti esamus."
+      ],
+      "benefits": [
+        "Įgysite žinių apie dermatologiją, odos sandarą ir tipus.",
+        "Įgysite žinių apie akies struktūrą.",
+        "Įgysite žinių apie lūpų odos ypatumus.",
+        "Susipažinsite su antakių, akies kontūro ir lūpų formomis, taisyklingos formos ir technikos parinkimo ypatumais.",
+        "Išmoksite pasirinkti tinkamiausias priemones, produktus ir įrangą procedūroms atlikti.",
+        "Išmoksite suteikti konsultaciją ir rekomendacijas klientui.",
+        "Įgysite stiprių teorinių žinių ir praktinės patirties, kad po mokymų jaustumėtės užtikrintai jau su naujais klientais."
+      ],
+      "explorer": {
+        "title": "Technikos, kurių išmoksite",
+        "lead": "Naujausios pasaulyje pripažintos ilgalaikio makiažo technikos trims veido zonoms ir šalinimas lazeriu.",
+        "groups": [
+          { "name": "Antakiai", "img": "pmu-antakiai", "alt": "Ilgalaikio antakių makiažo rezultatas", "items": ["OMBRE", "DUST", "POWDER", "PIXEL", "3D eyebrows"] },
+          { "name": "Lūpos", "img": "pmu-lupos", "alt": "Ilgalaikio lūpų makiažo rezultatas", "items": ["AQUARELLE", "LIPSTICK", "BABY", "OMBRE lips"] },
+          { "name": "Akys", "img": "pmu-akys", "alt": "Ilgalaikio akių kontūro makiažo rezultatas", "items": ["CLASSIC eyeliner"] },
+          { "name": "Šalinimas", "img": "pmu-lazeris", "alt": "Ilgalaikio makiažo šalinimo lazeriu praktika", "items": ["Perdengimas", "Blukinimas", "Pigmento išėmimas", "Šalinimas lazeriu"] }
+        ]
+      },
+      "start": ["Klientūros formavimas ir pritraukimas", "Socialinių tinklų valdymas ir tendencijos"],
+      "practice": "Praktikos metu, padedama ir prižiūrima profesionalios dėstytojos, turinčios tarptautinę patirtį, atliksite lūpų, akių ir antakių ilgalaikio makiažo procedūras ant dirbtinės odos ir modeliams skirtingomis technikomis.",
+      "after": ["Palaikymą ir motyvaciją.", "Nuolaidą priemonėms įsigyti."],
+      "after_note": "GK Academy mokinės tampa mūsų komandos dalimi, todėl palaikysime jus profesiniame kelyje neribotą laiką ir bet kada atsakysime į visus iškilusius klausimus.",
+      "includes": "Mokymų metu būsite aprūpinti visa reikiama vaizdine ir metodine medžiaga. Visos profesionalios sertifikuotos medžiagos, kuriomis naudositės mokymų metu, įskaičiuotos į mokymų kainą. Pasirūpiname ir modeliais praktikai.",
+      "kit": "Po mokymų galėsite su ypatinga nuolaida įsigyti startinį rinkinį savarankiškam darbui (rinkinio kaina – iki 900 €). Į jį įeina permanentinio makiažo aparatas, dėstytojos atrinkti pigmentai, kurie yra saugūs darbui ir atitinka ES reglamentą (REACH 2022), taip pat kitos darbui reikalingos medžiagos. Rinkinys nuolat atnaujinamas, todėl jau mokymų metu galėsite pratintis prie nuosavo aparato.",
+      "diploma": "Baigus mokymus įteikiamas tarptautinis diplomas anglų kalba, pripažįstamas ne tik Lietuvoje, bet ir užsienyje. Mokymų programa patvirtinta ir įtraukta į AIKOS sistemą, LR Suaugusiųjų švietimo registrą.",
+      "teacher": { "name": "Vaiva", "role": "Permanentinio makiažo dėstytoja", "text": "Šiuos mokymus veda stiprią profesinę patirtį turinti permanentinio makiažo dėstytoja Vaiva. Ji nuolat kuria naujas ilgalaikio makiažo technikas pagal naujausią metodiką." },
+      "options": [
+        { "id": "3d", "label": "3 dienos", "sub": "Antakiai ir šalinimas lazeriu", "days": 3, "group": 1200, "ind": 1500 },
+        { "id": "4d", "label": "4 dienos", "sub": "Antakiai ir šalinimas lazeriu", "days": 4, "group": 1500, "ind": 1800 },
+        { "id": "5d", "label": "5 dienos", "sub": "Antakiai, lūpos, akys ir šalinimas lazeriu", "days": 5, "group": 1900, "ind": 2500 },
+        { "id": "6d", "label": "6 dienos", "sub": "Antakiai, lūpos, akys ir šalinimas lazeriu", "days": 6, "group": 2400, "ind": 2900 }
+      ],
+      "default_option": "5d",
+      "group_label": "Grupiniai (tik 2 mokinių grupė)",
+      "lang_note": "Individualių mokymų rusų arba anglų kalba kaina – nuo 2 200 € (priklauso nuo pasirinktos programos).",
+      "assure": ["Tarptautinis diplomas anglų kalba", "Medžiagos ir modeliai įskaičiuoti į kainą", "Grupėje – tik dvi mokinės", "Palaikymas po mokymų neribotą laiką"],
+      "gallery": [
+        { "img": "pmu-procedura", "alt": "Dėstytoja atlieka ilgalaikio antakių makiažo procedūrą" },
+        { "img": "pmu-antakiai", "alt": "Ilgalaikio antakių makiažo rezultatas" },
+        { "img": "pmu-lupos", "alt": "Ilgalaikio lūpų makiažo rezultatas" },
+        { "img": "pmu-akys", "alt": "Ilgalaikio akių kontūro makiažo rezultatas" },
+        { "img": "pmu-grupe", "alt": "Dėstytoja ir mokinės ilgalaikio makiažo praktikoje" }
+      ],
+      "related": ["pmu-antakiai", "pmu-masterclass", "pmu-lazeris"]
+    },
+    "antakiu-dizainas": {
+      "h1": "Antakių dizaino, architektūros ir laminavimo mokymai",
+      "badge": "Nauja 2027 metų programa",
+      "lead": "Antakių architektūra, veido analizė, skirtingi dažai ir jų formulės, dažymo technikos, korekcija ir laminavimas – viskas, ką turi žinoti antakių specialistas, vienuose intensyviuose mokymuose.",
+      "intro": [
+        "Mada išpuoselėtiems antakiams karaliauja jau ne pirmus metus, todėl savo grožiu besirūpinančios moterys ir vyrai vis rečiau rizikuoja gražintis savarankiškai ir atsakingą antakių korekcijos bei dažymo procedūrą patiki tai išmanantiems specialistams.",
+        "Norint profesionaliai atlikti antakių dažymo ir laminavimo procedūrą, ypač svarbu turėti reikiamas žinias ir tvirtą pagrindą, nuo kurių priklausys jūsų darbo kokybė ir pirmųjų klientų atsiliepimai.",
+        "Mokysitės dirbti su skirtingomis dažų rūšimis ir skirtingomis laminavimo sistemomis, kad kiekvienai klientei galėtumėte parinkti tinkamiausią sprendimą."
+      ],
+      "qualification": "Antakių dizaino, architektūros ir laminavimo specialistas – The Browist.",
+      "audience": ["Pradedantiems, neturintiems jokios patirties.", "Jau dirbantiems meistrams, norintiems išmokti naujausių dažymo ir laminavimo technikų ar pasikelti kvalifikaciją."],
+      "goals": [
+        "Perduoti ilgametę profesinę patirtį, kurios dėka jau su pirmuoju klientu galėsite drąsiai jaustis tikru antakių specialistu.",
+        "Išmokyti antakių korekcijos, dažymo ir laminavimo procedūrų nuo A iki Z.",
+        "Atnaujinti jūsų turimas žinias ir pristatyti grožio rinkos naujienas.",
+        "Pagerinti darbo kokybę ir išmokyti procedūrą atlikti aukščiausiu klientų aptarnavimo lygiu.",
+        "Išlaikyti jūsų esamus klientus ir pritraukti naujus.",
+        "Padidinti jūsų darbo užmokestį."
+      ],
+      "benefits": [
+        "Išmoksite atlikti veido analizę ir išrinkti pačią tinkamiausią, unikalią antakių formą.",
+        "Išmoksite procedūrą atlikti profesionaliai, atsižvelgdamos į kiekvieno kliento individualumą: jo veido bruožus ir odos ypatybes.",
+        "Mokėsite parinkti klientui tinkamiausią korekcijos būdą.",
+        "Sugebėsite išrinkti tinkamiausius dažus – nuo jų sudėties iki tinkamos spalvos išgavimo.",
+        "Išmoksite atlikti antakių laminavimą skirtingo tankumo antakių plaukeliams.",
+        "Įgytų žinių dėka suteiksite klientui unikalią paslaugą, po kurios jis jausis ypatingas ir norės grįžti pas jus vėl."
+      ],
+      "explorer": {
+        "title": "Mokymų programa",
+        "lead": "Visos programos temos: nuo higienos ir plauko sandaros iki architektūros schemų ir darbo su sudėtingais atvejais.",
+        "groups": [
+          { "name": "Pagrindai", "img": "dizainas-sepeteliai", "alt": "Antakių dažymo šepetėliai dėstytojos rankose", "items": ["LR higiena, darbų sauga", "Kliento anamnezė: indikacijos ir kontraindikacijos", "Kliento kortelė ir kliento paruošimas procedūrai", "Plauko sandara", "Plauko struktūros ypatumai dažymo ir laminavimo procedūrai", "Odos sandara, odos pH svarba", "Alerginės reakcijos", "Ką turime žinoti apie PPD?"] },
+          { "name": "Dažymas", "img": "dizainas-dazymas", "alt": "Antakių dažymas šepetėliu", "items": ["Dažų veikimo principas plauke ir odoje", "Dažymui naudojami dažai: cheminiai ir natūralūs (chna)", "Dažų formulės", "Natūralių ir cheminių dažų veikimo principas", "Antakių balinimas ir jo galimybės", "Veiksniai, lemiantys plauko blukimą", "Antakių dažymas ir randai", "Klasikinė antakių dažymo technika", "OMBRE antakių dažymo technikos", "Skirtingi OMBRE technikos išgavimo būdai"] },
+          { "name": "Architektūra", "img": "dizainas-zymejimas", "alt": "Antakių formos žymėjimas prieš procedūrą", "items": ["Antakių sandara ir formos", "Veido formos, antakių parinkimas pagal veido formą", "Veido proporcijos ir dominuojantys veido bruožai", "Tinkamo antakių pločio parinkimas", "Veido ir antakių asimetrija, sprendimo būdai", "Asimetriškų antakių koregavimas", "Antakių matavimo schemos ir žymėjimo prietaisai", "Antakių architektūros schemos ir jų transformacijos", "Veido analizė", "Atskaitos taškų ir lygmenų tikrinimas liniuotėmis"] },
+          { "name": "Laminavimas", "img": "dizainas-rezultatas", "alt": "Laminuoti antakiai po procedūros", "items": ["Antakių laminavimo aspektai ir etapai", "Laminavimo kryptys ir jų svarba galutiniam rezultatui", "Statinių ir dinaminių antakių niuansai", "Antakių priauginimas ir jo galimybės"] },
+          { "name": "Korekcija ir klientas", "img": "dizainas-mokymas", "alt": "Dėstytoja ir mokinė antakių korekcijos praktikoje", "items": ["Antakių korekcijos būdai: pincetu ir vašku", "Antakių karpymas", "Nepaklusnių antakių sprendimo būdai", "Sudėtingos situacijos ir jų sprendimo būdai", "Galimos klaidos ir jų analizė", "Kliento konsultacija ir antakių priežiūra po procedūros"] }
+        ]
+      },
+      "start": ["Klientūros formavimas ir pritraukimas"],
+      "practice": "Praktikos metu, prižiūrima ir padedama profesionalios dėstytojos Evelinos, atliksite antakių laminavimą, korekciją ir dažymą dviem skirtingais būdais, skirtingais dažais, dviem modeliams.",
+      "after": ["Palaikymą ir motyvaciją.", "Komunikaciją prireikus.", "Nuolaidą priemonėms įsigyti neribotą laiką."],
+      "after_note": "",
+      "includes": "Mokymų metu būsite aprūpinti visa reikiama vaizdine ir metodine medžiaga. Visos profesionalios sertifikuotos medžiagos (gamintojai: „RefectoCil“, „Elan“, „Thuya“, „Binacil“, „Supercilium“, „GK XD Brows Henna“), kuriomis naudositės mokymų metu, įskaičiuotos į mokymų kainą. Modeliais praktikai pasirūpiname mes, o po mokymų priemones galėsite įsigyti su nuolaida.",
+      "kit": "",
+      "diploma": "Baigus mokymus įteikiamas tarptautinis diplomas anglų kalba, pripažįstamas ne tik Lietuvoje, bet ir užsienyje. Mokymų programa patvirtinta ir įtraukta į AIKOS sistemą, LR Suaugusiųjų švietimo registrą.",
+      "teacher": { "name": "Evelina", "role": "Antakių dizaino dėstytoja", "text": "Ilgametę profesinę patirtį turinti GK Academy antakių dizaino dėstytoja perteiks teorinę ir praktinę patirtį ir atskleis visas antakių procedūrų paslaptis." },
+      "options": [
+        { "id": "1d", "label": "1 diena", "sub": "Intensyvūs mokymai", "days": 1, "group": 280, "ind": 380 },
+        { "id": "2d", "label": "2 dienos", "sub": "Išplėstiniai mokymai", "days": 2, "group": 480, "ind": 600 }
+      ],
+      "default_option": "1d",
+      "group_label": "Grupiniai",
+      "lang_note": "Individualių mokymų rusų arba anglų kalba kaina – nuo 400 €.",
+      "assure": ["Tarptautinis diplomas anglų kalba", "Medžiagos ir modeliai įskaičiuoti į kainą", "Tinka pradedantiems", "Nuolaida priemonėms neribotą laiką"],
+      "gallery": [
+        { "img": "dizainas-zymejimas", "alt": "Mokinei žymima antakių forma" },
+        { "img": "dizainas-rezultatas", "alt": "Laminuoti ir nudažyti antakiai po procedūros" },
+        { "img": "dizainas-dazymas", "alt": "Antakių dažymas šepetėliu" },
+        { "img": "dizainas-mokymas", "alt": "Dėstytoja ir mokinė antakių dizaino praktikoje" },
+        { "img": "dizainas-sepeteliai", "alt": "Antakių dažymo šepetėliai" }
+      ],
+      "related": ["antakiu-blakstienu-laminavimas", "blakstienu-laminavimas", "pmu-antakiai"]
+    },
+    "makiazas-sau": {
+      "h1": "Makiažo sau mokymai",
+      "badge": "",
+      "lead": "Trijų valandų mokymai kiekvienai moteriai, kuri nori suprasti savo veido bruožus, išmokti pasidažyti per kelias minutes ir tvarkingai susidėlioti asmeninę kosmetinę.",
+      "intro": [
+        "Makiažo kursai sau skirti visoms save mylinčioms moterims, kurios nori atrasti makiažo subtilybes ir gudrybes, išmokti atlikti makiažą per kelias minutes ir tvarkingai suformuoti savo asmeninę kosmetinę.",
+        "Padėsime suprasti savo veido bruožus ir jums tinkančias makiažo rūšis, parinksime patogią makiažo atlikimo techniką, nustatysime jūsų spalvinį tipą, nurodysime tinkančias kosmetikos priemones ir įrankius, atliksime jūsų kosmetinės reviziją.",
+        "Pasidažyti taip, tarsi būtum ką tik išžengusi iš salono, – visų moterų svajonė. Žinome, kaip greitai jus to išmokyti."
+      ],
+      "qualification": "",
+      "audience": ["Kiekvienai save mylinčiai merginai ar moteriai – bet kokio amžiaus ir bet kokios profesijos."],
+      "goals": [],
+      "benefits": [],
+      "explorer": {
+        "title": "Ko išmoksite per tris valandas",
+        "lead": "Dvylika žingsnių nuo odos paruošimo iki vakarinio makiažo.",
+        "groups": [
+          { "name": "Oda ir pagrindas", "img": "makiazas-sepetelis", "alt": "Mokinė dengia makiažo pagrindą šepetėliu", "items": ["Tinkamai paruošti veidą makiažui", "Pasirinkti tinkamą makiažo pagrindą pagal tekstūrą ir spalvas", "Tobulai maskuoti veido odą", "Tinkamai modeliuoti veidą", "Teisingai dengti ir naudoti skaistalus"] },
+          { "name": "Akys, antakiai, lūpos", "img": "makiazas-veidrodelis", "alt": "Mokinė dažosi žiūrėdama į veidrodėlį", "items": ["Taisyklingai formuoti antakį", "Teisingai formuoti akis", "Ryškiai ir efektingai dažyti lūpas", "Tinkamai suderinti makiažo spalvas"] },
+          { "name": "Kosmetinė ir įpročiai", "img": "makiazas-pora", "alt": "Dėstytoja su mokine peržiūri kosmetikos priemones", "items": ["Suformuoti idealų savo kosmetikos krepšelį", "Transformuoti dieninį makiažą į vakarinį", "Išvengti dažniausių makiažo klaidų"] }
+        ]
+      },
+      "start": [],
+      "practice": "Praktikos metu su profesionalios dėstytojos pagalba atliksite makiažą sau, naudodamos skirtingas technikas.",
+      "after": [],
+      "after_note": "",
+      "includes": "",
+      "kit": "",
+      "diploma": "",
+      "teacher": { "name": "", "role": "Makiažo dėstytoja", "text": "Šiuos mokymus veda didelę profesinę patirtį turinti profesionali makiažo meistrė." },
+      "options": [
+        { "id": "3h", "label": "3 valandos", "sub": "Vienas susitikimas", "days": 1, "group": 100, "ind": 150 }
+      ],
+      "default_option": "3h",
+      "group_label": "Grupiniai (3 mokinių grupė)",
+      "lang_note": "Individualių mokymų rusų arba anglų kalba kaina – 200 €.",
+      "assure": ["Tinka bet kokio amžiaus moterims", "Kosmetinės revizija kartu su dėstytoja", "Grupėje – tik trys mokinės", "Galima mokytis ir individualiai"],
+      "gallery": [
+        { "img": "makiazas-veidrodis", "alt": "Mokinė dažosi prie veidrodžio makiažo sau mokymuose" },
+        { "img": "makiazas-veidrodelis", "alt": "Mokinė su pudrine ir šepetėliu" },
+        { "img": "makiazas-sepetelis", "alt": "Mokinė dengia makiažo pagrindą" },
+        { "img": "makiazas-pora", "alt": "Dėstytoja ir mokinė prie kosmetikos priemonių" }
+      ],
+      "related": ["paaugliu-makiazas", "pro-makeup", "savimasazas"]
+    }
+  }
+}

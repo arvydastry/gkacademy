@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% from "partials/blocks.html" import photo, seats, seats_text, course_card, faq_list %}
+{# Vieningas mokymų programos šablonas. Visas turinys ateina iš src/data/site.json („courses“ + „details“). #}
+
+{% block title %}{{ d.h1 }} | GK Academy{% endblock %}
+{% block description %}{{ d.lead }}{% endblock %}
+{% block body_class %}page-course{% endblock %}
+{% block preload %}<link rel="preload" as="image" href="assets/img/photos/{{ d.gallery[0].img }}.webp" imagesrcset="assets/img/photos/{{ d.gallery[0].img }}-sm.webp {{ psize[d.gallery[0].img ~ '-sm'][0] }}w, assets/img/photos/{{ d.gallery[0].img }}.webp {{ psize[d.gallery[0].img][0] }}w" imagesizes="(min-width: 1000px) 46vw, 92vw">{% endblock %}
+{% block css %}<link rel="stylesheet" href="assets/css/course.css">{% endblock %}
+{% block schema %}<script type="application/ld+json">{{ schema }}</script>{% endblock %}
+
+{% block main %}
+{% set dep = site.deposit_percent %}
+{% set opt0 = (d.options|selectattr('id', 'equalto', d.default_option)|list)[0] %}
+{% set has_group = 'g' in course.fmt %}
+{% set open_sessions = course.sessions|selectattr('left', 'gt', 0)|list %}
+
+<!-- XStore: Single Product Builder, „Breadcrumb“ (woocommerce-etheme_breadcrumb). -->
+<nav class="crumbs" aria-label="Kelias">
+  <ol class="wrap">
+    <li><a href="index.html">Pradžia</a></li>
+    <li><a href="index.html#katalogas" data-cat-link="">Mokymai</a></li>
+    <li><a href="index.html#katalogas" data-cat-link="{{ cat.id }}">{{ cat.name }}</a></li>
+    <li aria-current="page">{{ course.short }}</li>
+  </ol>
+</nav>
+
+<section class="pdp" data-course-id="{{ course.id }}">
+  <div class="wrap pdp__grid">
+
+    <!-- XStore: „Product Images“ (woocommerce-product-etheme_product_images): miniatiūros apačioje, lightbox; lipnus stulpelis – XStore „Sticky Column“ (Elementor stulpelio nustatymas).
+         Papildomai (child theme): nespalvota nuotrauka, kuri nusispalvina pasirodžiusi ekrane. -->
+    <div class="pdp__gallery" data-gallery>
+      <div class="pdp__stage">
+        {% for g in d.gallery %}
+        <figure class="pdp__slide{% if loop.first %} is-on{% endif %}" data-slide="{{ loop.index0 }}">
+          {{ photo(g.img, g.alt, vw='(min-width: 1000px) 46vw, 92vw', lazy=not loop.first) }}
+        </figure>
+        {% endfor %}
+        {% if d.badge %}<p class="badge">{{ d.badge }}</p>{% endif %}
+      </div>
+      <ul class="pdp__thumbs">
+        {% for g in d.gallery %}
+        <li><button type="button" data-thumb="{{ loop.index0 }}" aria-label="Rodyti {{ loop.index }} nuotrauką"{% if loop.first %} aria-current="true"{% endif %}><img src="assets/img/photos/{{ g.img }}-sm.webp" alt="" width="{{ psize[g.img ~ '-sm'][0] }}" height="{{ psize[g.img ~ '-sm'][1] }}" loading="lazy" decoding="async"></button></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="pdp__sum" id="registracija">
+      <!-- XStore: „Title“, „Short Description“; kvalifikacijos eilutė – papildomas prekės laukas (ACF) arba pirma trumpo aprašymo eilutė. -->
+      <h1 class="pdp__title">{{ d.h1 }}</h1>
+      {% if course.qual %}<p class="pdp__qual">{{ icon('certificate') }}Kvalifikacija: {{ course.qual }}</p>{% endif %}
+      <p class="pdp__lead">{{ d.lead }}</p>
+
+      <!-- XStore: „Add to Cart“ (woocommerce-product-etheme_add_to_cart) + XStore „Variation swatches“ (tipas „label“).
+           Formatas, programa ir data yra prekės atributai (variantai); laisvos vietos = varianto likutis, rodomas „Advanced Stock Status“ (woocommerce-product-etheme_advanced_stock_status);
+           kai vietų nebėra – „Waitlist“ (woocommerce-product-etheme_waitlist). Avansas arba visa suma = avanso įskiepio pasirinkimas prieš mygtuką.
+           „Kita data“ ir „Užduoti klausimą“ = „Request A Quote“ (woocommerce-product-etheme_request_a_quote): užklausos forma su programos pavadinimu.
+           Demo skaičiuoklė, žingsnių linija ir vietų skaičiai – maketas. -->
+      <form class="book" data-book novalidate>
+        <span class="book__line" aria-hidden="true"><i data-book-progress></i></span>
+
+        <fieldset class="book__step" data-step="fmt">
+          <legend>Formatas</legend>
+          <div class="opts opts--2">
+            {% if has_group %}
+            <label class="opt"><input type="radio" name="fmt" value="g" checked><span class="opt__box"><b>Grupiniai</b><small>{{ d.group_label|replace('Grupiniai', '')|replace('(', '')|replace(')', '')|trim|capitalize or 'Pagal tvarkaraštį' }}</small></span></label>
+            {% endif %}
+            <label class="opt"><input type="radio" name="fmt" value="i"{% if not has_group %} checked{% endif %}><span class="opt__box"><b>Individualūs</b><small>Data derinama asmeniškai</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="book__step" data-step="opt">
+          <legend>Programa</legend>
+          <div class="opts">
+            {% for o in d.options %}
+            <label class="opt opt--row"><input type="radio" name="opt" value="{{ o.id }}"{% if o.id == d.default_option %} checked{% endif %}><span class="opt__box"><b>{{ o.label }}</b><small>{{ o.sub }}</small><span class="opt__price" data-opt-price="{{ o.id }}">{{ (o.group if has_group else o.ind)|eur }}</span></span></label>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        <fieldset class="book__step" data-step="date">
+          <legend>Data</legend>
+          <div class="opts" data-dates-group{% if not has_group %} hidden{% endif %}>
+            {% for s in course.sessions %}
+            <label class="opt opt--row{% if s.left == 0 %} is-off{% endif %}"><input type="radio" name="date" value="{{ s.start }}" data-end="{{ s.end }}"{% if s.left == 0 %} disabled{% elif open_sessions and s.start == open_sessions[0].start %} checked{% endif %}><span class="opt__box"><b><span data-date-prefix>{% if s.start != s.end or opt0.days > 1 %}Pradžia {% endif %}</span>{{ date_range(s.start) }}</b><small>{{ s.weekday|capitalize }}</small><span class="opt__seats">{{ seats(s.cap, s.left) }}{{ seats_text(s.left) }}</span></span></label>
+            {% endfor %}
+            <label class="opt opt--row"><input type="radio" name="date" value="other"{% if not open_sessions %} checked{% endif %}><span class="opt__box"><b>Kita data</b><small>Suderinsime individualiai</small></span></label>
+          </div>
+          <div class="book__ind" data-dates-ind{% if has_group %} hidden{% endif %}>
+            <p>Individualių mokymų datą suderinsime su jumis asmeniškai, kai tik gausime registraciją.</p>
+            <label class="sel sel--wide"><span>Pageidaujamas laikas</span>
+              <select name="when">
+                <option>Kuo greičiau</option>
+                <option>Per artimiausią mėnesį</option>
+                <option>Vėliau, dar tarsimės</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="book__step" data-step="pay">
+          <legend>Mokėjimas</legend>
+          <div class="opts">
+            <label class="opt opt--row"><input type="radio" name="pay" value="dep" checked><span class="opt__box"><b>Avansas</b><small>{{ dep }} % dabar, likusi suma iki mokymų pradžios</small><span class="opt__price" data-pay-dep>{{ ((opt0.group if has_group else opt0.ind) * dep / 100)|eur }}</span></span></label>
+            <label class="opt opt--row"><input type="radio" name="pay" value="full"><span class="opt__box"><b>Visa suma</b><small>Vienas mokėjimas</small><span class="opt__price" data-pay-full>{{ (opt0.group if has_group else opt0.ind)|eur }}</span></span></label>
+          </div>
+        </fieldset>
+
+        <div class="book__total">
+          <p class="book__now"><span>Mokėti dabar</span><b data-total-now>{{ ((opt0.group if has_group else opt0.ind) * dep / 100)|eur }}</b></p>
+          <p class="book__rest" data-total-rest-row>Likusi suma: <span data-total-rest>{{ ((opt0.group if has_group else opt0.ind) * (100 - dep) / 100)|eur }}</span></p>
+        </div>
+
+        <button class="btn btn--wide" type="submit" data-book-submit>Rezervuoti vietą{{ icon('arrow-right') }}</button>
+        <p class="book__alt">
+          <button class="lnk" type="button" data-open="inquiry" data-inquiry="{{ d.h1 }}">Užduoti klausimą apie šiuos mokymus</button>
+        </p>
+        <p class="book__note">{{ icon('credit-card') }}Visus mokymus galima įsigyti išsimokėtinai.</p>
+      </form>
+
+      <!-- XStore: „Icon List“ (etheme_icon_list). -->
+      <ul class="assure">
+        {% for a in d.assure %}<li>{{ icon('check') }}{{ a }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- XStore: Elementor Container produkto šablone (tamsus fonas) + Elementor „Tabs“ (grupės) + Text Editor sąrašai + Image.
+     Turinys skiriasi pagal programą, todėl grupės saugomos prekės laukuose (ACF „Repeater“) ir išvedamos vienu šablonu.
+     Papildomai (child theme): nuotraukos keitimas perjungiant grupę, tamsios scenos išsiplėtimas slenkant. -->
+<section class="explore on-dark" data-scene>
+  <div class="explore__panel" data-scene-panel>
+    <div class="wrap explore__grid">
+      <div class="explore__copy">
+        <h2 data-split>{{ d.explorer.title|split }}</h2>
+        <p class="explore__lead" data-reveal>{{ d.explorer.lead }}</p>
+        <div class="explore__tabs" role="tablist" aria-label="{{ d.explorer.title }}" data-explore-tabs>
+          {% for g in d.explorer.groups %}
+          <button class="tab{% if loop.first %} is-on{% endif %}" type="button" role="tab" id="exp-tab-{{ loop.index }}" aria-controls="exp-pane-{{ loop.index }}" aria-selected="{{ 'true' if loop.first else 'false' }}"{% if not loop.first %} tabindex="-1"{% endif %} data-explore-tab="{{ loop.index0 }}">{{ g.name }}</button>
+          {% endfor %}
+        </div>
+        {% for g in d.explorer.groups %}
+        <ul class="explore__list{% if g['items']|map('length')|max <= 20 %} explore__list--big{% endif %}" role="tabpanel" id="exp-pane-{{ loop.index }}" aria-labelledby="exp-tab-{{ loop.index }}" data-explore-pane="{{ loop.index0 }}"{% if not loop.first %} hidden{% endif %}>
+          {% for it in g['items'] %}<li>{{ it }}</li>{% endfor %}
+        </ul>
+        {% endfor %}
+      </div>
+      <div class="explore__media" data-speed="-5">
+        {% for g in d.explorer.groups %}
+        <figure class="explore__ph{% if loop.first %} is-on{% endif %}" data-explore-ph="{{ loop.index0 }}">{{ photo(g.img, g.alt, vw='(min-width: 1000px) 38vw, 92vw') }}</figure>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- XStore: „Tabs“ (woocommerce-product-etheme_tabs), tipas „accordion“ visuose ekranuose; papildomi skirtukai – prekės laukai.
+     Dešinėje: Heading + Text Editor (dėstytoja), Image + XStore „Icon List“ (mokymų vieta). -->
+<section class="info">
+  <div class="wrap info__grid">
+    <div class="info__main">
+      <h2 class="sr">Apie mokymus</h2>
+
+      <details class="acc" open>
+        <summary><span>Aprašymas</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          {% for p in d.intro %}<p>{{ p }}</p>{% endfor %}
+        </div>
+      </details>
+
+      {% if d.audience %}
+      <details class="acc">
+        <summary><span>Kam skirti mokymai</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <ul class="ticks">{% for a in d.audience %}<li>{{ a }}</li>{% endfor %}</ul>
+        </div>
+      </details>
+      {% endif %}
+
+      {% if d.goals %}
+      <details class="acc">
+        <summary><span>Mokymų tikslas</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <ul class="ticks">{% for g in d.goals %}<li>{{ g }}</li>{% endfor %}</ul>
+        </div>
+      </details>
+      {% endif %}
+
+      {% if d.benefits %}
+      <details class="acc">
+        <summary><span>Mokymų nauda</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <ul class="ticks">{% for b in d.benefits %}<li>{{ b }}</li>{% endfor %}</ul>
+        </div>
+      </details>
+      {% endif %}
+
+      <details class="acc">
+        <summary><span>Praktika</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <p>{{ d.practice }}</p>
+          {% if d.start %}
+          <p>Mokymų metu pristatomas sėkmingo starto pradžiamokslis:</p>
+          <ul class="ticks">{% for s in d.start %}<li>{{ s }}</li>{% endfor %}</ul>
+          {% endif %}
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary><span>Trukmė ir kaina</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <div class="tbl">
+            <table class="prices">
+              <thead><tr><th scope="col">Programa</th>{% if has_group %}<th scope="col">{{ d.group_label }}</th>{% endif %}<th scope="col">Individualūs</th></tr></thead>
+              <tbody>
+                {% for o in d.options %}
+                <tr><th scope="row">{{ o.label }}<small>{{ o.sub }}</small></th>{% if has_group %}<td>{{ o.group|eur }}</td>{% endif %}<td>{{ o.ind|eur }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <p>{{ d.lang_note }}</p>
+          <p>Mokymų vieta: {{ site.contacts.place }}.</p>
+        </div>
+      </details>
+
+      {% if d.diploma %}
+      <details class="acc">
+        <summary><span>Diplomas ir kvalifikacija</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <p>Įgyjama kvalifikacija: {{ d.qualification }}</p>
+          <p>{{ d.diploma }}</p>
+        </div>
+      </details>
+      {% endif %}
+
+      {% if d.includes %}
+      <details class="acc">
+        <summary><span>Kas įskaičiuota į kainą</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body"><p>{{ d.includes }}</p></div>
+      </details>
+      {% endif %}
+
+      {% if d.kit %}
+      <details class="acc">
+        <summary><span>Startinis rinkinys</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body"><p>{{ d.kit }}</p></div>
+      </details>
+      {% endif %}
+
+      {% if d.after %}
+      <details class="acc">
+        <summary><span>Po mokymų</span>{{ icon('plus', 'acc__plus') }}</summary>
+        <div class="acc__body">
+          <p>Po mokymų gausite:</p>
+          <ul class="ticks">{% for a in d.after %}<li>{{ a }}</li>{% endfor %}</ul>
+          {% if d.after_note %}<p>{{ d.after_note }}</p>{% endif %}
+        </div>
+      </details>
+      {% endif %}
+    </div>
+
+    <aside class="info__side">
+      <div class="side-card" data-reveal>
+        <h2>{{ d.teacher.role }}{% if d.teacher.name %} {{ d.teacher.name }}{% endif %}</h2>
+        <p>{{ d.teacher.text }}</p>
+      </div>
+      <div class="side-card side-card--place" data-reveal>
+        <figure>{{ photo('akademija-registratura', 'GK Academy registratūra', vw='(min-width: 1000px) 26vw, 92vw') }}</figure>
+        <h2>Mokymų vieta</h2>
+        <p>{{ site.contacts.place }}</p>
+        <p><a class="lnk lnk--arrow" href="{{ site.contacts.map }}" target="_blank" rel="noopener">Atidaryti žemėlapyje{{ icon('arrow-up-right') }}</a></p>
+      </div>
+      <div class="side-card" data-reveal>
+        <h2>Turite klausimų?</h2>
+        <p>Skambinkite <a class="lnk" href="tel:{{ site.contacts.phone_href }}">{{ site.contacts.phone }}</a> arba rašykite <a class="lnk" href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a>.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+{% if course.aud == 'pro' %}
+<!-- XStore: Elementor Container (globalus šablonas, rodomas profesinių programų puslapiuose per „Display Conditions“): Heading + XStore „Text Button“. -->
+<section class="finline">
+  <div class="wrap finline__in" data-reveal>
+    <p class="finline__t">Mokymus gali finansuoti valstybė: iki 100 % per Užimtumo tarnybą arba iki 500 € per platformą „Kursuok.lt“.</p>
+    <a class="btn btn--line" href="index.html#finansavimas">Kaip gauti finansavimą{{ icon('arrow-right') }}</a>
+  </div>
+</section>
+{% endif %}
+
+<!-- XStore: „Related Products“ (woocommerce-product-etheme_related) arba „Cross-Sells Products“ su rankiniu programų parinkimu. -->
+<section class="related">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Kitos programos'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal><a class="lnk lnk--arrow" href="index.html#katalogas" data-cat-link="{{ cat.id }}">Visos srities „{{ cat.name }}“ programos{{ icon('arrow-right') }}</a></p>
+      </div>
+    </div>
+    <div class="related__grid">
+      {% for c in related %}
+      {{ course_card(c) }}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="faqs">
+  <div class="wrap faqs__grid">
+    <div class="faqs__head">
+      <h2 data-split>{{ 'Dažni klausimai'|split }}</h2>
+      <p data-reveal>Neradote atsakymo? <button class="lnk" type="button" data-open="inquiry" data-inquiry="{{ d.h1 }}">Parašykite mums</button>.</p>
+    </div>
+    {{ faq_list(site.faq[:6]) }}
+  </div>
+</section>
+
+<!-- XStore: „Sticky Cart“ (woocommerce-product-etheme_sticky_cart) pakeičia šią demo juostą. -->
+<div class="buybar" data-buybar hidden>
+  <div class="wrap buybar__in">
+    <p class="buybar__t"><b>{{ course.short }}</b><span data-bar-sel></span></p>
+    <p class="buybar__p"><small>Mokėti dabar</small><b data-bar-price>{{ ((opt0.group if has_group else opt0.ind) * dep / 100)|eur }}</b></p>
+    <a class="btn" href="#registracija">Rezervuoti</a>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}<script src="assets/js/course.js" defer></script>{% endblock %}

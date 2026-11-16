@@ -1,0 +1,91 @@
+<div class="scrim" data-scrim hidden></div>
+
+<!-- XStore: Header Builder „Shopping Cart“ valdiklis (off-canvas). Demo krepšelis yra maketas (naršyklės atmintis) ir neperkeliamas:
+     temoje jį pakeičia WooCommerce mini krepšelis, o eilutės „Mokėti dabar“ / „Likusi suma“ ateina iš avanso įskiepio. -->
+<aside class="drawer" id="cart" data-layer="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+  <header class="drawer__head">
+    <h2 id="cart-title">Jūsų rezervacija</h2>
+    <button class="x" type="button" data-close aria-label="Uždaryti">{{ icon('x') }}</button>
+  </header>
+  <div class="drawer__body" data-cart-body></div>
+  <footer class="drawer__foot" data-cart-foot hidden>
+    <dl class="sum">
+      <div class="sum__now"><dt>Mokėti dabar</dt><dd data-cart-now></dd></div>
+      <div><dt>Likusi suma iki mokymų pradžios</dt><dd data-cart-rest></dd></div>
+    </dl>
+    <button class="btn btn--wide" type="button" data-demo="Apmokėjimo puslapis bus sukurtas kitame etape. Čia pasirinksite mokėjimo būdą, o patvirtinimą gausite el. paštu.">Tęsti registraciją{{ icon('arrow-right') }}</button>
+    <p class="drawer__note">{{ icon('bell-ringing') }}Patvirtinimą gausite iškart, priminimą – prieš mokymus.</p>
+  </footer>
+</aside>
+
+<!-- XStore: Header Builder „Mobile Menu“ valdiklis (off-canvas). -->
+<aside class="menu on-dark" id="menu" data-layer="menu" role="dialog" aria-modal="true" aria-label="Meniu" hidden>
+  <header class="menu__head">
+    <img src="assets/img/brand/logo-white.png" width="354" height="105" alt="GK Academy">
+    <button class="x" type="button" data-close aria-label="Uždaryti meniu">{{ icon('x') }}</button>
+  </header>
+  <nav class="menu__nav" aria-label="Meniu telefone">
+    <ul class="menu__main">
+      <li><a href="{{ home }}#katalogas" data-cat-link="">Mokymai</a></li>
+      <li><a href="{{ home }}#tvarkarastis">Tvarkaraštis</a></li>
+      <li><a href="{{ home }}#finansavimas">Finansavimas</a></li>
+      <li><a href="{{ home }}#akademija">Akademija</a></li>
+      <li><a href="{{ home }}#kontaktai">Kontaktai</a></li>
+    </ul>
+    <ul class="menu__cats">
+      {% for cat in site.categories %}
+      <li><a href="{{ home }}#katalogas" data-cat-link="{{ cat.id }}">{{ cat.name }}<span>{{ cat.count }}</span></a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+  <footer class="menu__foot">
+    <a href="tel:{{ site.contacts.phone_href }}">{{ site.contacts.phone }}</a>
+    <a href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a>
+    <p class="lang"><span aria-current="true">LT</span><a href="#" lang="en" hreflang="en" data-demo="Anglišką versiją parengsime patvirtinus projektą.">EN</a></p>
+  </footer>
+</aside>
+
+<!-- XStore: Header Builder „Popup Search“ arba „Header Ajax Search“ valdiklis (Ajax paieška, rezultatai – prekės, t. y. mokymų programos). -->
+<div class="search" id="search" data-layer="search" role="dialog" aria-modal="true" aria-label="Mokymų paieška" hidden>
+  <div class="wrap search__in">
+    <form class="search__form" role="search" data-search-form>
+      <label class="sr" for="search-q">Ieškoti mokymų</label>
+      {{ icon('magnifying-glass') }}
+      <input id="search-q" type="search" name="q" placeholder="Pavyzdžiui: antakiai, blakstienos, masažas" autocomplete="off" data-search-input>
+      <button class="x" type="button" data-close aria-label="Uždaryti paiešką">{{ icon('x') }}</button>
+    </form>
+    <p class="search__hint" data-search-hint>Įveskite bent dvi raides. Ieškoma tarp {{ courses|length }} mokymų programų.</p>
+    <ul class="search__list" data-search-list></ul>
+  </div>
+</div>
+
+<!-- XStore: „Modal Popup“ (etheme_modal_popup) su „Contact Form 7“ valdikliu arba Elementor forma („PRO Elements“).
+     Individualių datų užklausa: tema – programa, kurios puslapyje paspaustas mygtukas. -->
+<div class="modal" id="inquiry" data-layer="inquiry" role="dialog" aria-modal="true" aria-labelledby="inquiry-title" hidden>
+  <div class="modal__box">
+    <button class="x modal__x" type="button" data-close aria-label="Uždaryti">{{ icon('x') }}</button>
+    <h2 id="inquiry-title">Užklausa</h2>
+    <p class="modal__topic" data-inquiry-topic>Parašykite, kokie mokymai ir kokia data jus domina. Atsakysime ir suderinsime laiką individualiai.</p>
+    <form class="form" data-form novalidate>
+      <input type="hidden" name="tema" data-inquiry-field>
+      <div class="form__row">
+        <label class="field"><span>Vardas</span><input type="text" name="vardas" autocomplete="given-name" required></label>
+        <label class="field"><span>Telefonas</span><input type="tel" name="telefonas" autocomplete="tel" inputmode="tel" required></label>
+      </div>
+      <label class="field"><span>El. paštas</span><input type="email" name="el_pastas" autocomplete="email" required></label>
+      <label class="field"><span>Pageidaujama data arba laikotarpis</span><input type="text" name="data" placeholder="Pavyzdžiui: sausio antra pusė, savaitgaliais"></label>
+      <label class="field"><span>Klausimas <em>(neprivaloma)</em></span><textarea name="zinute" rows="3"></textarea></label>
+      <label class="check"><input type="checkbox" name="sutikimas" required><span>Sutinku, kad mano duomenys būtų naudojami atsakymui į šią užklausą.</span></label>
+      <button class="btn btn--wide" type="submit">Siųsti užklausą{{ icon('arrow-right') }}</button>
+      <p class="form__ok" role="status" hidden>Ačiū! Tai demo forma, todėl užklausa neišsiųsta. Tikroje svetainėje atsakymą gautumėte el. paštu.</p>
+    </form>
+  </div>
+</div>
+
+<!-- XStore: „Modal Popup“ (etheme_modal_popup) su Elementor „Video“ valdikliu (įjungti „Privacy Mode“). -->
+<div class="modal modal--video" id="video" data-layer="video" role="dialog" aria-modal="true" aria-label="GK Academy vaizdo pristatymas" hidden>
+  <div class="modal__video" data-video="{{ site.contacts.video }}"></div>
+  <button class="x modal__x" type="button" data-close aria-label="Uždaryti vaizdo įrašą">{{ icon('x') }}</button>
+</div>
+
+<div class="toast" data-toast role="status" aria-live="polite" hidden></div>

@@ -1,0 +1,395 @@
+/* GK Academy demo · bendra sistema (visi puslapiai)
+   Kryptis „Linija ir pigmentas“: plonos linijos, plona antraščių antikva, nespalvotos nuotraukos, kurios nusispalvina.
+   Auksinė spalva (iš logotipo drugelio) naudojama tik linijoms. Užpildas visada juodas arba baltas. */
+
+@font-face{font-family:"Noto Serif Display";src:url("../fonts/NotoSerifDisplay.woff2") format("woff2");font-weight:250 600;font-stretch:75% 100%;font-style:normal;font-display:swap}
+@font-face{font-family:"Hanken Grotesk";src:url("../fonts/HankenGrotesk.woff2") format("woff2");font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+  --ink:#0c0c0d;
+  --ink-2:#17171a;
+  --ink-3:#2a2a2e;
+  --paper:#fff;
+  --mist:#f3f3f4;
+  --mist-2:#e8e8ea;
+  --line:#dcdcdf;
+  --line-2:#bdbdc2;
+  --mute:#66666c;
+  --mute-dark:#b4b4ba;
+  --line-dark:rgba(255,255,255,.17);
+  --gold:#d2ac67;        /* logotipo drugelio spalva: linijoms tamsiame fone */
+  --gold-deep:#a8843f;   /* ta pati linija šviesiame fone */
+  --serif:"Noto Serif Display","Iowan Old Style","Palatino Linotype","Times New Roman",serif;
+  --sans:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --gut:clamp(20px,4.6vw,72px);
+  --max:1520px;
+  --sec:clamp(84px,10.5vw,176px);
+  --head-h:84px;
+  --ease:cubic-bezier(.22,.7,.12,1);
+  --ease-io:cubic-bezier(.65,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:calc(var(--head-h) + 20px)}
+body{margin:0;font:400 17px/1.6 var(--sans);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:clip}
+h1,h2,h3,h4,p,ul,ol,figure,blockquote,dl,dd,fieldset,legend{margin:0;padding:0}
+fieldset{border:0;min-width:0}
+ul,ol{list-style:none}
+img,svg,video,iframe{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+button{background:none;border:0;padding:0;cursor:pointer;text-align:inherit}
+table{border-collapse:collapse;width:100%}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.on-dark :focus-visible{outline-color:var(--gold)}
+::selection{background:var(--ink);color:#fff}
+.on-dark ::selection{background:var(--gold);color:var(--ink)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-80px;z-index:300;padding:12px 18px;background:var(--ink);color:#fff;font-weight:600}
+.skip:focus{top:12px}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
+.ico{width:1.25em;height:1.25em;flex:none;fill:currentColor}
+.nb{white-space:nowrap}
+a[href^="tel:"]{white-space:nowrap}
+
+/* ------------------------------------------------------------ tipografija */
+h1,h2,.statement,.fact__num,.date__day{font-family:var(--serif);font-weight:300;font-stretch:92%;letter-spacing:-.012em;line-height:1.03}
+h1,h2{text-wrap:balance}
+h2{font-size:clamp(38px,5.2vw,86px)}
+h3{font:600 20px/1.3 var(--sans);letter-spacing:-.005em}
+h4{font:600 15px/1.35 var(--sans)}
+p{text-wrap:pretty}
+small{font-size:inherit}
+em{font-style:normal;color:var(--mute)}
+s{color:var(--mute);font-weight:400}
+sup{font-size:.62em;vertical-align:top;position:relative;top:-.1em;margin-left:.35em;font-weight:500;opacity:.6}
+
+/* antraštės žodžiai iškyla po vieną (žodžius apgaubia build.py filtras „split“) */
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:.16em .04em .18em;margin:-.16em -.04em -.18em}
+.w__i{display:inline-block}
+.js:not(.is-static) [data-split] .w__i{transform:translateY(118%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--i) * 60ms)}
+.js:not(.is-static) [data-split].is-in .w__i{transform:none}
+
+.js:not(.is-static) [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js:not(.is-static) [data-reveal].is-in{opacity:1;transform:none}
+
+/* sekcijos antraštė: didelė antraštė kairėje, trumpas paaiškinimas dešinėje */
+.sec-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:20px clamp(24px,6vw,120px);align-items:end;margin-bottom:clamp(36px,5vw,76px)}
+.sec-head__side{display:flex;flex-direction:column;gap:22px;padding-bottom:.55em}
+.sec-head__side p{max-width:44ch;color:var(--mute)}
+.on-dark .sec-head__side p{color:var(--mute-dark)}
+@media (max-width:899px){.sec-head{grid-template-columns:1fr}.sec-head__side{padding-bottom:0}}
+
+/* ------------------------------------------------------------ nuotraukos: pigmentas
+   Nuotrauka nespalvota, kol nepasirodo ekrane (data-pigment="view") arba kol neužvedama pelė (data-pigment="hover").
+   Be scenarijaus ir režime be judesio nuotraukos iškart spalvotos. */
+.ph{display:block;position:relative;overflow:hidden;background:var(--mist-2);height:100%}
+.ph img{width:100%;height:100%;object-fit:cover}
+.js:not(.is-static) .ph img{filter:grayscale(1) contrast(1.06);transition:filter 1.5s var(--ease-io) .12s,transform 1.5s var(--ease)}
+.js:not(.is-static) .ph.is-in img{filter:grayscale(0) contrast(1)}
+.js:not(.is-static) .ph[data-pigment="hover"] img{transition-duration:.85s,1.3s;transition-delay:0s}
+@media (hover:hover){
+  a:hover .ph[data-pigment="hover"] img,a:focus-visible .ph[data-pigment="hover"] img{filter:grayscale(0) contrast(1);transform:scale(1.045)}
+}
+
+/* ------------------------------------------------------------ mygtukai: kontūras, kuris užsipildo nuo pelės taško */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.65em;min-height:56px;padding:0 30px;font:600 15.5px/1 var(--sans);letter-spacing:.005em;color:#fff;background:var(--ink);border:1px solid var(--ink);overflow:hidden;isolation:isolate;cursor:pointer;white-space:nowrap;transition:color .45s var(--ease)}
+.btn::before{content:"";position:absolute;left:var(--x,50%);top:var(--y,50%);width:12px;height:12px;border-radius:50%;background:#fff;transform:translate(-50%,-50%) scale(0);transition:transform .65s var(--ease);z-index:-1}
+.btn .ico{transition:transform .45s var(--ease)}
+@media (hover:hover){
+  .btn:hover{color:var(--ink)}
+  .btn:hover::before{transform:translate(-50%,-50%) scale(70)}
+  .btn:hover .ico{transform:translateX(4px)}
+}
+.btn:active{transform:translateY(1px)}
+.btn--line{color:var(--ink);background:transparent}
+.btn--line::before{background:var(--ink)}
+@media (hover:hover){.btn--line:hover{color:#fff}}
+.btn--s{min-height:46px;padding:0 20px;font-size:14.5px}
+.btn--wide{width:100%}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.on-dark .btn{color:var(--ink);background:#fff;border-color:#fff}
+.on-dark .btn::before{background:var(--ink)}
+.on-dark .btn--line{color:#fff;background:transparent;border-color:rgba(255,255,255,.55)}
+.on-dark .btn--line::before{background:#fff}
+@media (hover:hover){
+  .on-dark .btn:hover{color:#fff}
+  .on-dark .btn--line:hover{color:var(--ink)}
+}
+
+/* apvalus valdymo mygtukas (rodyklės) */
+.rnd{width:52px;height:52px;display:grid;place-items:center;border:1px solid var(--line-2);border-radius:50%;transition:background-color .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+.rnd .ico{width:20px;height:20px}
+.rnd:hover:not(:disabled){background:var(--ink);color:#fff;border-color:var(--ink)}
+.rnd:disabled{opacity:.35;cursor:default}
+
+/* nuoroda: auksinė linija nusibrėžia užvedus */
+.lnk{background:linear-gradient(var(--gold-deep),var(--gold-deep)) 0 100%/100% 1px no-repeat;padding-bottom:2px;transition:background-size .5s var(--ease);cursor:pointer}
+@media (hover:hover){.lnk:hover{background-size:0 1px;background-position:100% 100%}}
+.on-dark .lnk{background-image:linear-gradient(var(--gold),var(--gold))}
+.lnk--arrow{display:inline-flex;align-items:center;gap:.5em;font-weight:600}
+.lnk--arrow .ico{width:1.05em;height:1.05em;transition:transform .4s var(--ease)}
+.lnk--arrow:hover .ico{transform:translate(3px,0)}
+
+/* skirtukai */
+.tab{position:relative;padding:10px 2px;font-weight:500;color:var(--mute);transition:color .3s}
+.tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--gold-deep);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.tab.is-on,.tab:hover{color:var(--ink)}
+.tab.is-on::after{transform:scaleX(1)}
+.on-dark .tab{color:var(--mute-dark)}
+.on-dark .tab.is-on,.on-dark .tab:hover{color:#fff}
+.on-dark .tab::after{background:var(--gold)}
+
+/* žymos (filtrai) */
+.chip{display:inline-flex;align-items:baseline;padding:11px 16px;border:1px solid var(--line);font-size:15px;font-weight:500;white-space:nowrap;transition:background-color .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.chip:hover{border-color:var(--ink)}
+.chip.is-on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* pasirinkimo laukas */
+.sel{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sel>span{font-size:12.5px;font-weight:500;color:var(--mute)}
+.sel select{appearance:none;-webkit-appearance:none;min-height:40px;padding:4px 30px 6px 0;border:0;border-bottom:1px solid var(--line-2);border-radius:0;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%230c0c0d' d='M212.24 100.24l-80 80a6 6 0 01-8.48 0l-80-80a6 6 0 018.48-8.48L128 167.51l75.76-75.75a6 6 0 018.48 8.48z'/%3E%3C/svg%3E") right 2px center/16px no-repeat;font-weight:600;font-size:16px;cursor:pointer;text-overflow:ellipsis}
+.sel select:hover,.sel select:focus-visible{border-bottom-color:var(--ink)}
+.sel--wide{margin-top:14px}
+
+/* formos */
+.form{display:grid;gap:22px}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.field{display:grid;gap:4px;min-width:0}
+.field>span{font-size:13.5px;font-weight:500;color:var(--mute)}
+.field input,.field textarea,.field select{width:100%;padding:8px 0 10px;border:0;border-bottom:1px solid var(--line-2);border-radius:0;background:transparent;font-size:17px;outline:0;transition:border-color .3s,box-shadow .3s}
+.field select{appearance:none;-webkit-appearance:none;padding-right:28px;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%230c0c0d' d='M212.24 100.24l-80 80a6 6 0 01-8.48 0l-80-80a6 6 0 018.48-8.48L128 167.51l75.76-75.75a6 6 0 018.48 8.48z'/%3E%3C/svg%3E") right 2px center/16px no-repeat;cursor:pointer}
+.field textarea{resize:vertical;min-height:84px;line-height:1.5}
+.field input::placeholder,.field textarea::placeholder{color:#9a9aa0}
+.field input:focus,.field textarea:focus,.field select:focus{border-bottom-color:var(--ink);box-shadow:0 1.5px 0 var(--gold-deep)}
+.field.is-bad input,.field.is-bad textarea{border-bottom-color:#b3261e}
+.field__err{font-size:13.5px;color:#b3261e}
+.check{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--mute);cursor:pointer}
+.check input{appearance:none;-webkit-appearance:none;flex:none;width:20px;height:20px;margin:2px 0 0;border:1px solid var(--line-2);background:#fff;display:grid;place-items:center;cursor:pointer;transition:background-color .25s,border-color .25s}
+.check input::after{content:"";width:10px;height:6px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:translateY(-1px) rotate(-45deg) scale(0);transition:transform .25s var(--ease)}
+.check input:checked{background:var(--ink);border-color:var(--ink)}
+.check input:checked::after{transform:translateY(-1px) rotate(-45deg) scale(1)}
+.check.is-bad input{border-color:#b3261e}
+.form__ok{padding:16px 18px;border-left:2px solid var(--gold-deep);background:var(--mist);font-size:15px}
+@media (max-width:559px){.form__row{grid-template-columns:1fr}}
+
+/* sąrašai: auksinis brūkšnelis vietoje taško */
+.ticks{display:grid;gap:10px}
+.ticks li{position:relative;padding-left:30px}
+.ticks li::before{content:"";position:absolute;left:0;top:.8em;width:18px;height:1.5px;background:var(--gold-deep)}
+.on-dark .ticks li::before{background:var(--gold)}
+.nums{display:grid;gap:12px;counter-reset:n}
+.nums li{position:relative;padding-left:38px;counter-increment:n}
+.nums li::before{content:counter(n);position:absolute;left:0;top:-.14em;font:300 26px/1.3 var(--serif)}
+
+/* laisvos vietos: užpildytas taškas – užimta, kontūras – laisva */
+.seats{display:inline-flex;gap:5px;vertical-align:middle}
+.seats i{width:10px;height:10px;border-radius:50%;border:1.5px solid currentColor}
+.seats i.is-taken{background:currentColor}
+
+.badge{display:inline-block;padding:7px 12px;background:var(--ink);color:#fff;font-size:13px;font-weight:600;letter-spacing:.01em}
+
+.x{width:46px;height:46px;display:grid;place-items:center;flex:none}
+.x .ico{width:24px;height:24px;transition:transform .4s var(--ease)}
+.x:hover .ico{transform:rotate(90deg)}
+
+/* ------------------------------------------------------------ viršutinė juosta ir antraštė */
+.topbar{background:var(--ink);color:#e6e6e8;font-size:13.5px}
+.topbar__in{display:flex;justify-content:space-between;align-items:center;gap:24px;min-height:40px}
+.topbar__links{display:flex;align-items:center;gap:clamp(14px,2vw,28px)}
+.topbar a{display:inline-flex;align-items:center;gap:7px;transition:color .25s}
+.topbar a:hover{color:#fff}
+.topbar .ico{width:16px;height:16px}
+.lang{display:flex;gap:12px;align-items:center;font-weight:600}
+.lang span{color:#fff;box-shadow:0 1.5px 0 var(--gold)}
+.lang a{opacity:.62}
+.lang a:hover{opacity:1}
+@media (max-width:899px){.topbar__note,.topbar__mail{display:none}.topbar__in{justify-content:flex-end}.topbar__links{width:100%;justify-content:space-between}}
+@media (max-width:419px){.topbar__shop{display:none}}
+
+.header{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line);transition:transform .55s var(--ease)}
+.header.is-hidden{transform:translateY(-102%)}
+.header__in{display:flex;align-items:center;gap:clamp(20px,3vw,48px);min-height:var(--head-h)}
+.logo{flex:none}
+.logo img{height:46px;width:auto}
+.nav{margin-left:auto}
+.nav ul{display:flex;gap:clamp(20px,2.6vw,40px)}
+.nav a,.nav__btn{position:relative;display:inline-flex;align-items:center;gap:6px;padding:10px 0;font-size:16px;font-weight:500}
+.nav a::after,.nav__btn::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:1.5px;background:var(--gold-deep);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav a:hover::after,.nav__btn:hover::after,.nav__btn[aria-expanded="true"]::after{transform:scaleX(1);transform-origin:left}
+.nav__btn .ico{width:14px;height:14px;transition:transform .35s var(--ease)}
+.nav__btn[aria-expanded="true"] .ico{transform:rotate(180deg)}
+.tools{display:flex;align-items:center;gap:2px;margin-right:-10px}
+.tools__b{position:relative;width:46px;height:46px;display:grid;place-items:center}
+.tools__b .ico{width:24px;height:24px;transition:transform .35s var(--ease)}
+.tools__b:hover .ico{transform:translateY(-2px)}
+.tools__n{position:absolute;top:3px;right:1px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ink);color:#fff;font:700 11px/18px var(--sans);text-align:center}
+.tools__b--menu{display:none}
+@media (max-width:1099px){
+  :root{--head-h:68px}
+  .nav{display:none}
+  .tools{margin-left:auto}
+  .tools__b--menu{display:grid}
+  .tools__b--acc{display:none}
+  .logo img{height:38px}
+}
+
+/* mega meniu */
+.mega{position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);box-shadow:0 40px 60px -40px rgba(12,12,13,.35);max-height:calc(100vh - var(--head-h) - 40px);overflow:auto}
+.mega__in{padding-block:38px 30px}
+.mega__cols{columns:4;column-gap:clamp(28px,4vw,64px)}
+.mega__g{break-inside:avoid;margin-bottom:28px}
+.mega__cat{display:inline-block;margin-bottom:8px;font:400 23px/1.2 var(--serif);font-stretch:92%}
+.mega__g li a{display:block;padding:4px 0;font-size:15px;color:var(--mute);transition:color .2s,transform .35s var(--ease)}
+.mega__g li a:hover{color:var(--ink);transform:translateX(5px)}
+.mega__all{display:inline-flex;align-items:center;gap:10px;padding-top:20px;border-top:1px solid var(--line);width:100%;font-weight:600}
+.mega__all .ico{transition:transform .4s var(--ease)}
+.mega__all:hover .ico{transform:translateX(5px)}
+.js:not(.is-static) .mega{animation:megaIn .45s var(--ease)}
+@keyframes megaIn{from{opacity:0;transform:translateY(-10px)}}
+
+/* ------------------------------------------------------------ sluoksniai: krepšelis, meniu, paieška, langai */
+.scrim{position:fixed;inset:0;z-index:90;background:rgba(12,12,13,.5);animation:fade .35s both}
+@keyframes fade{from{opacity:0}}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:100;width:min(480px,100vw);display:flex;flex-direction:column;background:#fff;animation:slideIn .5s var(--ease) both}
+@keyframes slideIn{from{transform:translateX(100%)}}
+.drawer__head{display:flex;align-items:center;justify-content:space-between;padding:18px 16px 18px 28px;border-bottom:1px solid var(--line)}
+.drawer__head h2{font-size:30px}
+.drawer__body{flex:1;overflow:auto;padding:8px 28px}
+.drawer__foot{padding:22px 28px 26px;border-top:1px solid var(--line);display:grid;gap:16px}
+.drawer__note{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--mute)}
+.drawer__note .ico{margin-top:2px}
+.sum{display:grid;gap:8px}
+.sum>div{display:flex;justify-content:space-between;gap:20px;font-size:15px;color:var(--mute)}
+.sum dd{font-variant-numeric:tabular-nums}
+.sum__now{color:var(--ink)!important;font-weight:600;font-size:17px!important;align-items:baseline}
+.sum__now dd{font:300 34px/1 var(--serif)}
+.cart-empty{display:grid;gap:18px;justify-items:start;padding:36px 0}
+.cart-empty p{color:var(--mute)}
+.cart-item{position:relative;padding:22px 44px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}
+.cart-item h3{font-size:18px}
+.cart-item ul{display:grid;gap:2px;font-size:14.5px;color:var(--mute)}
+.cart-item__p{display:flex;justify-content:space-between;gap:16px;margin-top:6px;font-weight:600;font-variant-numeric:tabular-nums}
+.cart-item__p small{font-weight:400;color:var(--mute)}
+.cart-item__x{position:absolute;right:-10px;top:14px;width:40px;height:40px;display:grid;place-items:center;color:var(--mute)}
+.cart-item__x:hover{color:var(--ink)}
+
+.menu{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;background:var(--ink);color:#fff;overflow:auto;animation:fade .35s both}
+.menu__head{display:flex;justify-content:space-between;align-items:center;padding:12px var(--gut);min-height:68px}
+.menu__head img{height:38px;width:auto}
+.menu__nav{flex:1;padding:16px var(--gut) 24px}
+.menu__main a{display:block;padding:6px 0;font:300 clamp(40px,11vw,60px)/1.12 var(--serif);font-stretch:90%}
+.menu__cats{margin-top:28px;border-top:1px solid var(--line-dark)}
+.menu__cats a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line-dark);font-size:17px}
+.menu__cats span{color:var(--mute-dark)}
+.menu__foot{display:grid;gap:8px;padding:20px var(--gut) 32px;font-size:17px}
+.menu__foot .lang{margin-top:10px}
+
+.search{position:fixed;left:0;right:0;top:0;z-index:100;background:#fff;max-height:100vh;overflow:auto;animation:dropIn .45s var(--ease) both}
+@keyframes dropIn{from{transform:translateY(-100%)}}
+.search__in{padding-block:22px 34px}
+.search__form{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--ink)}
+.search__form>.ico{width:28px;height:28px}
+.search__form input{flex:1;min-width:0;border:0;outline:0;background:none;padding:14px 0;font:300 clamp(24px,3.6vw,46px)/1.2 var(--serif);font-stretch:90%}
+.search__form input::-webkit-search-cancel-button{display:none}
+.search__hint{margin-top:16px;color:var(--mute);font-size:15px}
+.search__list{margin-top:8px}
+.search__list a{display:grid;grid-template-columns:1fr auto;gap:4px 24px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.search__list b{font-weight:600}
+.search__list small{grid-column:1;color:var(--mute);font-size:14px}
+.search__list span{grid-row:1;grid-column:2;font-weight:600;font-variant-numeric:tabular-nums}
+.search__list a:hover b{box-shadow:0 1.5px 0 var(--gold-deep)}
+
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;overflow:auto}
+.modal__box{position:relative;width:min(620px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;padding:clamp(26px,4vw,48px);animation:pop .45s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(24px)}}
+.modal__box h2{font-size:clamp(34px,4vw,48px);padding-right:44px}
+.modal__topic{margin:12px 0 26px;color:var(--mute)}
+.modal__topic b{color:var(--ink);font-weight:600}
+.modal__x{position:absolute;right:8px;top:8px}
+.modal--video{padding:0;background:rgba(12,12,13,.94)}
+.modal--video .modal__x{color:#fff;right:12px;top:12px}
+.modal__video{width:min(1200px,calc(100vw - 32px));aspect-ratio:16/9;background:#000}
+.modal__video iframe{width:100%;height:100%;border:0}
+
+.toast{position:fixed;left:50%;bottom:26px;z-index:200;transform:translateX(-50%);max-width:min(560px,calc(100vw - 32px));padding:15px 20px;background:var(--ink);color:#fff;font-size:15px;line-height:1.45;border-left:2px solid var(--gold);box-shadow:0 20px 50px -20px rgba(0,0,0,.5);animation:pop .4s var(--ease) both}
+
+/* ------------------------------------------------------------ programos kortelė (katalogas, susijusios programos) */
+.card{position:relative;border:1px solid var(--line);background:#fff;margin:0 -1px -1px 0;overflow:hidden;isolation:isolate}
+.card::before{content:"";position:absolute;left:var(--x,50%);top:var(--y,50%);width:24px;height:24px;border-radius:50%;background:var(--ink);transform:translate(-50%,-50%) scale(0);transition:transform .75s var(--ease);z-index:-1}
+.card__link{display:flex;flex-direction:column;gap:14px;height:100%;min-height:268px;padding:26px 26px 24px;transition:color .4s var(--ease)}
+.card__cat{font-size:13.5px;font-weight:500;color:var(--mute);padding-right:44px;transition:color .4s var(--ease)}
+.card__title{font:300 clamp(24px,1.9vw,30px)/1.12 var(--serif);font-stretch:86%;letter-spacing:-.006em;text-wrap:balance}
+.card__meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14.5px;color:var(--mute);transition:color .4s var(--ease)}
+.card__meta li{display:inline-flex;align-items:center;gap:7px}
+.card__meta .ico{width:17px;height:17px}
+.card__foot{display:flex;justify-content:space-between;align-items:baseline;gap:8px 16px;flex-wrap:wrap;margin-top:auto;padding-top:16px;border-top:1px solid var(--line);transition:border-color .4s}
+.card__price{font-size:21px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em;white-space:nowrap}
+.card__price small{font-size:14px;font-weight:400;color:var(--mute);transition:color .4s}
+.card__price s{font-size:15px;margin-left:4px}
+.card__date{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;color:var(--mute);transition:color .4s;white-space:nowrap}
+.card__date .ico{width:17px;height:17px}
+.card__go{position:absolute;right:22px;bottom:74px;opacity:0;transform:translate(-8px,8px);transition:opacity .4s,transform .5s var(--ease)}
+.card__go .ico{width:26px;height:26px}
+.card__wish{position:absolute;right:14px;top:14px;width:44px;height:44px;display:grid;place-items:center;color:var(--mute);transition:color .3s,transform .3s var(--ease)}
+.card__wish .ico{width:22px;height:22px}
+.card__wish:hover{transform:scale(1.12);color:var(--ink)}
+.card__wish[aria-pressed="true"]{color:var(--ink)}
+@media (hover:hover){
+  .card:hover::before,.card:focus-within::before{transform:translate(-50%,-50%) scale(70)}
+  .card:hover .card__link,.card:focus-within .card__link{color:#fff}
+  .card:hover .card__cat,.card:hover .card__meta,.card:hover .card__date,.card:hover .card__price small,.card:hover .card__price s,
+  .card:focus-within .card__cat,.card:focus-within .card__meta,.card:focus-within .card__date,.card:focus-within .card__price small,.card:focus-within .card__price s{color:var(--mute-dark)}
+  .card:hover .card__foot,.card:focus-within .card__foot{border-color:var(--line-dark)}
+  .card:hover .card__go,.card:focus-within .card__go{opacity:1;transform:none;color:var(--gold)}
+  .card:hover .card__wish,.card:focus-within .card__wish{color:#fff}
+}
+
+/* ------------------------------------------------------------ dažni klausimai ir išskleidžiami blokai */
+.faq__item,.acc{border-bottom:1px solid var(--line)}
+.faq__item:first-child,.acc:first-of-type{border-top:1px solid var(--line)}
+.faq__item summary,.acc summary{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:22px 0;cursor:pointer;list-style:none;font-size:clamp(18px,1.5vw,21px);font-weight:500;line-height:1.3;transition:color .25s}
+.faq__item summary::-webkit-details-marker,.acc summary::-webkit-details-marker{display:none}
+.faq__plus,.acc__plus{width:22px;height:22px;transition:transform .45s var(--ease)}
+details[open]>summary .faq__plus,details[open]>summary .acc__plus{transform:rotate(45deg)}
+.faq__a,.acc__body{padding:0 0 26px;max-width:68ch;color:#3c3c41;display:grid;gap:14px}
+.faqs{padding-block:var(--sec)}
+.faqs__grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px clamp(32px,7vw,140px);align-items:start}
+.faqs__head{display:grid;gap:22px;position:sticky;top:calc(var(--head-h) + 32px)}
+.faqs__head p{color:var(--mute);max-width:36ch}
+@media (max-width:899px){.faqs__grid{grid-template-columns:1fr}.faqs__head{position:static}}
+
+/* ------------------------------------------------------------ tamsi scena: įslenka su paraštėmis ir išsiplečia (kintamąjį --inset keičia core.js) */
+[data-scene-panel]{background:var(--ink);color:#fff;clip-path:inset(0 var(--inset,0px));will-change:clip-path}
+
+/* ------------------------------------------------------------ poraštė */
+.footer{background:var(--ink);color:#fff;padding-block:clamp(64px,7vw,110px) 28px}
+.footer__top{display:grid;grid-template-columns:minmax(0,4fr) repeat(3,minmax(0,2.4fr));gap:48px clamp(24px,4vw,72px);padding-bottom:clamp(48px,6vw,84px)}
+.footer__logo img{height:64px;width:auto}
+.footer__brand{display:grid;gap:22px;align-content:start}
+.footer__brand p{font:300 clamp(24px,2.2vw,34px)/1.15 var(--serif);font-stretch:90%;max-width:14ch}
+.footer__social{display:flex;gap:10px}
+.footer__social a,.footer__social button{width:48px;height:48px;display:grid;place-items:center;border:1px solid var(--line-dark);border-radius:50%;transition:background-color .35s var(--ease),color .35s,border-color .35s}
+.footer__social .ico{width:22px;height:22px}
+.footer__social a:hover,.footer__social button:hover{background:#fff;color:var(--ink);border-color:#fff}
+.footer__col h2{font:600 14px/1.3 var(--sans);letter-spacing:.01em;color:var(--mute-dark);margin-bottom:16px}
+.footer__col ul{display:grid;gap:9px}
+.footer__col a{transition:color .2s;background:linear-gradient(var(--gold),var(--gold)) 0 100%/0 1px no-repeat;transition:background-size .45s var(--ease)}
+.footer__col a:hover{background-size:100% 1px}
+.footer__cv{margin-top:22px;font-size:14.5px;color:var(--mute-dark);max-width:30ch}
+.footer__cv a{color:#fff}
+.footer__bottom{display:flex;justify-content:space-between;gap:12px 32px;flex-wrap:wrap;padding-top:24px;border-top:1px solid var(--line-dark);font-size:14px;color:var(--mute-dark)}
+.footer__bottom ul{display:flex;gap:8px 28px;flex-wrap:wrap}
+.footer__bottom a:hover{color:#fff}
+@media (max-width:999px){.footer__top{grid-template-columns:1fr 1fr}.footer__brand{grid-column:1/-1}}
+@media (max-width:519px){.footer__top{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* atidarius sluoksnį puslapis po juo neslenka */
+html.has-layer{overflow:hidden}

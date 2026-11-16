@@ -1,0 +1,48 @@
+{# Bendri blokai (makrokomandos), naudojami pradžios ir mokymų puslapiuose. #}
+
+{# Nuotrauka. mode="view": spalva atsiranda, kai nuotrauka pasirodo ekrane; mode="hover": užvedus pelę. #}
+{% macro photo(name, alt, cls='', vw='(min-width: 1000px) 40vw, 92vw', mode='view', lazy=true, pos='') %}
+<span class="ph {{ cls }}" data-pigment="{{ mode }}"><img src="assets/img/photos/{{ name }}.webp" srcset="assets/img/photos/{{ name }}-sm.webp {{ psize[name ~ '-sm'][0] }}w, assets/img/photos/{{ name }}.webp {{ psize[name][0] }}w" sizes="{{ vw }}" width="{{ psize[name][0] }}" height="{{ psize[name][1] }}" alt="{{ alt }}"{% if lazy %} loading="lazy" decoding="async"{% else %} fetchpriority="high"{% endif %}{% if pos %} style="object-position:{{ pos }}"{% endif %}></span>
+{% endmacro %}
+
+{# Laisvų vietų taškai: užpildytas taškas – užimta vieta, kontūras – laisva. DEMO skaičiai (žr. build.py seats_left). #}
+{% macro seats(cap, left) %}
+<span class="seats" role="img" aria-label="{% if left == 0 %}Vietų nebėra{% else %}Laisvų vietų: {{ left }} iš {{ cap }}{% endif %}">{% for i in range(cap) %}<i{% if i < cap - left %} class="is-taken"{% endif %}></i>{% endfor %}</span>
+{% endmacro %}
+
+{% macro seats_text(left) %}
+{%- if left == 0 %}Vietų nebėra{% elif left == 1 %}Liko 1 vieta{% else %}Laisvos {{ left }} vietos{% endif -%}
+{% endmacro %}
+
+{# Programos kortelė (katalogas, susijusios programos).
+   XStore: „Products Grid“ (etheme_product_grid) kortelė; kaina, trukmė ir artimiausia data – prekės laukai. #}
+{% macro course_card(c, home='') %}
+<article class="card" data-course="{{ c.id }}" data-cat="{{ c.cat }}" data-aud="{{ c.aud }}" data-dmin="{{ c.days[0] }}" data-dmax="{{ c.days[1] }}" data-fmt="{{ c.fmt|join(' ') }}" data-price="{{ c.price }}" data-next="{{ c.next.start if c.next else '' }}" data-months="{% for s in c.sessions %}{{ s.month }} {% endfor %}" data-img="{{ c.img }}">
+  <a class="card__link"{% if c.page %} href="{{ c.page }}"{% else %} href="#" data-demo="Šios programos puslapis bus sukurtas patvirtinus projektą."{% endif %}>
+    <span class="card__cat">{{ c.cat_name }}{% if c.note %} · {{ c.note }}{% endif %}</span>
+    <h3 class="card__title">{{ c.title }}</h3>
+    <ul class="card__meta">
+      <li>{{ icon('clock') }}{{ c.dur|capitalize }}</li>
+      {% if c.fmt_label %}<li>{{ icon('users') }}{{ c.fmt_label }}</li>{% endif %}
+    </ul>
+    <span class="card__foot">
+      <span class="card__price">{% if not c.single %}<small>nuo</small> {% endif %}{{ c.price|eur }}{% if c.was %} <s>{{ c.was|eur }}</s>{% endif %}</span>
+      <span class="card__date">{% if c.next %}{{ icon('calendar-blank') }}{{ c.next.label }}{% else %}Data derinama{% endif %}</span>
+    </span>
+    <span class="card__go" aria-hidden="true">{{ icon('arrow-up-right') }}</span>
+  </a>
+  <button class="card__wish" type="button" data-wish="{{ c.id }}" aria-pressed="false" aria-label="Įsiminti programą „{{ c.short }}“">{{ icon('heart') }}</button>
+</article>
+{% endmacro %}
+
+{# Dažni klausimai. XStore: Elementor „Accordion“ / „Toggle“ + DUK struktūriniai duomenys („Rank Math“ FAQ blokas). #}
+{% macro faq_list(items) %}
+<div class="faq">
+  {% for f in items %}
+  <details class="faq__item"{% if loop.first %} open{% endif %}>
+    <summary><span>{{ f.q }}</span>{{ icon('plus', 'faq__plus') }}</summary>
+    <div class="faq__a"><p>{{ f.a }}</p></div>
+  </details>
+  {% endfor %}
+</div>
+{% endmacro %}

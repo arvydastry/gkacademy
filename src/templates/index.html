@@ -1,0 +1,445 @@
+{% extends "base.html" %}
+{% from "partials/blocks.html" import photo, seats, seats_text, course_card, faq_list %}
+
+{% block title %}GK Academy – grožio mokymų akademija Vilniuje{% endblock %}
+{% block description %}GK Academy – grožio mokymų akademija Vilniuje nuo 2009 metų: ilgalaikis makiažas, blakstienos, antakiai, depiliacija, masažas ir kiti mokymai. Tvarkaraštis, kainos, registracija internetu.{% endblock %}
+{% block body_class %}page-home{% endblock %}
+{% block preload %}<link rel="preload" as="image" href="assets/img/photos/dizainas-mokymas.webp" imagesrcset="assets/img/photos/dizainas-mokymas-sm.webp 640w, assets/img/photos/dizainas-mokymas.webp 1200w" imagesizes="(min-width: 1000px) 34vw, 78vw">{% endblock %}
+{% block css %}<link rel="stylesheet" href="assets/css/home.css">{% endblock %}
+{% block schema %}<script type="application/ld+json">{{ org_schema }}</script>{% endblock %}
+
+{% block main %}
+
+<!-- XStore: Elementor Container (2 stulpeliai): Heading + Text Editor + 2× XStore „Text Button“; dešinėje 2× Image su „XStore Parallax“ (Advanced > scroll_effects).
+     Papildomai (child theme): auksinė linija nuo žodžio „čia“ (SVG, nubrėžiama įkeliant puslapį), antraštės eilučių iškilimas, nuotraukų spalvos atsiradimas. -->
+<section class="hero" data-hero>
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title">
+        <span class="ln"><span class="ln__i">Tavo grožio</span></span>
+        <span class="ln"><span class="ln__i">kelias prasideda</span></span>
+        <span class="ln"><span class="ln__i">čia<i class="hero__dot" data-path-start aria-hidden="true"></i></span></span>
+      </h1>
+      <p class="hero__lead" data-reveal>GK Academy – grožio mokymų akademija Vilniuje. {{ site.brand.lead }}</p>
+      <div class="hero__cta" data-reveal>
+        <a class="btn" href="#katalogas">Rinktis mokymus{{ icon('arrow-right') }}</a>
+        <a class="btn btn--line" href="#tvarkarastis">Artimiausios datos</a>
+      </div>
+      {% if sessions %}
+      {% set s = sessions[0] %}{% set c = courses_by_id[s.course] %}
+      <p class="hero__next" data-reveal data-hero-next>Artimiausi mokymai: <a class="lnk" href="#tvarkarastis">{{ c.short }}, {{ s.label }}</a></p>
+      {% endif %}
+    </div>
+
+    <div class="hero__media">
+      <figure class="hero__ph hero__ph--main" data-speed="-7">
+        {{ photo('dizainas-mokymas', 'Dėstytoja ir mokinė antakių dizaino mokymuose GK Academy', vw='(min-width: 1000px) 34vw, 78vw', lazy=false, pos='50% 30%') }}
+      </figure>
+      <figure class="hero__ph hero__ph--detail" data-speed="9">
+        {{ photo('hero-linija', 'Ilgalaikio makiažo adata brėžia antakio liniją', vw='(min-width: 1000px) 18vw, 42vw', lazy=false) }}
+      </figure>
+    </div>
+    <svg class="hero__path" data-hero-path aria-hidden="true" focusable="false"><path fill="none"/></svg>
+  </div>
+
+  <!-- XStore: „Products Filters“ / Ajax filtrai virš katalogo; demo forma tik perduoda pasirinkimus katalogo filtrams žemiau. -->
+  <div class="wrap">
+    <form class="finder" data-finder data-reveal>
+      <label class="finder__f">
+        <span>Sritis</span>
+        <select name="cat">
+          <option value="">Visos sritys</option>
+          {% for cat in site.categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="finder__f">
+        <span>Kada</span>
+        <select name="month">
+          <option value="">Bet kada</option>
+          {% for m in months %}<option value="{{ m.n }}">{{ m.name }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="finder__f">
+        <span>Formatas</span>
+        <select name="fmt">
+          <option value="">Grupėje arba individualiai</option>
+          <option value="g">Grupiniai mokymai</option>
+          <option value="i">Individualūs mokymai</option>
+        </select>
+      </label>
+      <button class="btn finder__go" type="submit">Rasti mokymus{{ icon('arrow-right') }}</button>
+    </form>
+  </div>
+</section>
+
+<!-- XStore: „Marquee“ (etheme_marquee). Savaime: begalinė juosta, sustojimas užvedus. Papildomai: pagreitėjimas pagal slinkimo greitį. -->
+<div class="marquee" data-marquee>
+  <div class="marquee__track">
+    {% for r in range(2) %}
+    <ul{% if r %} aria-hidden="true"{% endif %}>
+      {% for m in site.marquee %}<li>{{ m }}</li>{% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- XStore: „Product Categories“ (etheme_categories) karuselės režimu arba „Horizontal Scroll“ (etheme_horizontal_scroll) su kategorijų kortelėmis.
+     Savaime: karuselė, rodyklės, kategorijos nuotrauka, programų skaičius. Papildomai (child theme): nespalvota nuotrauka, kuri nusispalvina užvedus, „nuo … €“ eilutė ir auksinė eigos linija. -->
+<section class="areas" id="sritys">
+  <div class="wrap sec-head">
+    <h2 data-split>{{ (courses|length ~ ' mokymų ' ~ courses|length|plural('programa', 'programos', 'programų') ~ ' devyniose srityse')|split }}</h2>
+    <div class="sec-head__side">
+      <p data-reveal>Pasirinkite sritį ir pamatysite jos programas, kainas ir artimiausias datas.</p>
+      <div class="areas__nav" data-reveal>
+        <button class="rnd" type="button" data-areas-prev aria-label="Ankstesnės sritys">{{ icon('arrow-left') }}</button>
+        <button class="rnd" type="button" data-areas-next aria-label="Kitos sritys">{{ icon('arrow-right') }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="areas__scroller" data-areas tabindex="0" role="region" aria-label="Mokymų sritys">
+    <ul class="areas__track">
+      {% for cat in site.categories %}
+      <li class="area">
+        <a class="area__a" href="#katalogas" data-cat-link="{{ cat.id }}">
+          {{ photo(cat.img, '', cls='area__ph', vw='(min-width: 1000px) 24vw, 62vw', mode='hover', pos=cat.pos) }}
+          <span class="area__name">{{ cat.name }}</span>
+          <span class="area__meta">{{ cat.count }} {{ cat.count|plural('programa', 'programos', 'programų') }} · nuo {{ cat.price|eur }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="wrap"><div class="areas__bar" aria-hidden="true"><span data-areas-progress></span></div></div>
+</section>
+
+<!-- XStore: Elementor Container (tamsus fonas) + „Products List“ (etheme_product_list), rikiuojama pagal mokymų datą; skirtukai – XStore „Tabs“ arba filtras pagal mėnesį.
+     Kiekviena eilutė = prekės variantas su data; laisvos vietos = varianto likutis (stock), rodomas „Advanced Stock Status“. Kai vietų nebėra – XStore „Waitlist“ (woocommerce-product-etheme_waitlist).
+     Variantų sąrašo pagal datą XStore savaime neišveda: reikia trumpo child theme kodo (shortcode), kuris surenka artimiausius variantus.
+     Papildomai (child theme): datos lentelės išvaizda, vietų taškai, tamsios scenos išsiplėtimas slenkant. Laisvų vietų skaičiai čia – DEMO. -->
+<section class="dates on-dark" id="tvarkarastis" data-scene>
+  <div class="dates__panel" data-scene-panel>
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 data-split>{{ 'Artimiausi mokymai'|split }}</h2>
+        <div class="sec-head__side">
+          <p data-reveal>Grupiniai mokymai vyksta pagal tvarkaraštį mažose grupėse. Jei tinkamos datos nerandate, suderinsime ją individualiai.</p>
+        </div>
+      </div>
+
+      <div class="dates__tabs" role="group" aria-label="Mėnuo" data-reveal>
+        <button class="tab is-on" type="button" data-dates-tab="" aria-pressed="true">Visos datos</button>
+        {% for m in months %}
+        <button class="tab" type="button" data-dates-tab="{{ m.n }}" aria-pressed="false">{{ m.name }}</button>
+        {% endfor %}
+      </div>
+
+      <ol class="dates__list" data-dates>
+        {% for s in sessions %}
+        {% set c = courses_by_id[s.course] %}
+        <li class="date{% if s.left == 0 %} is-full{% endif %}" data-start="{{ s.start }}" data-end="{{ s.end }}" data-month="{{ s.month }}">
+          <p class="date__when"><span class="date__day">{{ s.day }}</span><span class="date__mon">{{ s.month_gen }}<br>{{ s.weekday }}</span></p>
+          <div class="date__what">
+            <h3 class="date__title"><a{% if c.page %} href="{{ c.page }}?data={{ s.start }}"{% else %} href="#" data-demo="Šios programos puslapis bus sukurtas patvirtinus projektą."{% endif %}>{{ c.short }}</a></h3>
+            <p class="date__meta">{{ c.cat_name }} · {{ c.dur }}</p>
+          </div>
+          <p class="date__seats">{{ seats(s.cap, s.left) }}<span>{{ seats_text(s.left) }}</span></p>
+          <p class="date__price">{% if not c.single %}<small>nuo</small> {% endif %}{{ c.price|eur }}</p>
+          <p class="date__cta">
+            {% if s.left == 0 %}
+            <button class="btn btn--line btn--s" type="button" data-demo="Įrašysime jus į laukiančiųjų sąrašą ir pranešime el. paštu, kai atsiras vieta.">Pranešti, kai atsiras</button>
+            {% elif c.page %}
+            <a class="btn btn--s" href="{{ c.page }}?data={{ s.start }}">Rezervuoti</a>
+            {% else %}
+            <button class="btn btn--s" type="button" data-open="inquiry" data-inquiry="{{ c.title }}, {{ s.label }}">Rezervuoti</button>
+            {% endif %}
+          </p>
+        </li>
+        {% endfor %}
+      </ol>
+      <p class="dates__empty" data-dates-empty hidden>Šiuo metu tvarkaraštyje naujų datų nėra. Parašykite mums ir suderinsime datą individualiai.</p>
+
+      <div class="dates__foot">
+        <button class="btn btn--line" type="button" data-dates-more hidden>Rodyti daugiau datų</button>
+        <p>Nerandate tinkamos datos? <button class="lnk" type="button" data-open="inquiry" data-inquiry="Individuali mokymų data">Paprašykite individualios</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- XStore: „Products Grid“ (etheme_product_grid) su Ajax filtrais: „Product Filters“ (etheme_product_filters) arba „Horizontal Filters“ (etheme_sidebar_horizontal), puslapiavimas „Load more“.
+     Savaime: prekių užklausa, filtrai pagal kategoriją ir atributus (trukmė, formatas, kam skirta), rikiavimas, kaina.
+     Papildomai (child theme): lipni srities nuotrauka kairėje, kortelės užsipildymas juoda spalva nuo pelės taško, artimiausia data kortelėje. -->
+<section class="catalog" id="katalogas">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Visi mokymai'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal>Kiekviena programa turi savo puslapį su aprašymu, kainomis ir datomis. Filtruokite pagal sritį, trukmę, formatą ar mėnesį.</p>
+      </div>
+    </div>
+
+    <div class="filters" data-filters data-reveal>
+      <div class="chips" role="group" aria-label="Sritis">
+        <button class="chip is-on" type="button" data-chip="" aria-pressed="true">Visos<sup>{{ courses|length }}</sup></button>
+        {% for cat in site.categories %}
+        <button class="chip" type="button" data-chip="{{ cat.id }}" aria-pressed="false">{{ cat.name }}<sup>{{ cat.count }}</sup></button>
+        {% endfor %}
+      </div>
+      <div class="filters__row">
+        <label class="sel"><span>Trukmė</span>
+          <select data-f="dur">
+            <option value="">Visos trukmės</option>
+            <option value="s">1 diena ar trumpiau</option>
+            <option value="m">2–3 dienos</option>
+            <option value="l">4 dienos ir daugiau</option>
+          </select>
+        </label>
+        <label class="sel"><span>Formatas</span>
+          <select data-f="fmt">
+            <option value="">Grupėje arba individualiai</option>
+            <option value="g">Grupiniai</option>
+            <option value="i">Individualūs</option>
+          </select>
+        </label>
+        <label class="sel"><span>Kam skirta</span>
+          <select data-f="aud">
+            <option value="">Profesijai ir sau</option>
+            <option value="pro">Profesijai</option>
+            <option value="self">Sau</option>
+          </select>
+        </label>
+        <label class="sel"><span>Data</span>
+          <select data-f="month">
+            <option value="">Bet kada</option>
+            {% for m in months %}<option value="{{ m.n }}">{{ m.name }}</option>{% endfor %}
+          </select>
+        </label>
+        <label class="sel"><span>Rikiuoti</span>
+          <select data-f="sort">
+            <option value="">Pagal sritį</option>
+            <option value="date">Pagal artimiausią datą</option>
+            <option value="asc">Kaina: nuo mažiausios</option>
+            <option value="desc">Kaina: nuo didžiausios</option>
+          </select>
+        </label>
+        <button class="filters__clear lnk" type="button" data-f-clear hidden>Išvalyti filtrus</button>
+      </div>
+    </div>
+
+    <div class="catalog__body">
+      <aside class="catalog__side" data-side>
+        <div class="catalog__ph" data-side-ph>
+          <img src="assets/img/photos/{{ site.categories[0].img }}.webp" alt="" loading="lazy" decoding="async" data-side-img>
+          <img src="assets/img/photos/{{ site.categories[0].img }}.webp" alt="" loading="lazy" decoding="async" data-side-img>
+        </div>
+        <p class="catalog__name" data-side-name>Visos sritys</p>
+        <p class="catalog__count" aria-live="polite"><span data-count>{{ courses|length }}</span> <span data-count-word>{{ courses|length|plural('programa', 'programos', 'programų') }}</span></p>
+      </aside>
+
+      <div class="catalog__main">
+        <div class="catalog__grid" data-grid>
+          {% for c in courses %}
+          {{ course_card(c) }}
+          {% endfor %}
+        </div>
+        <p class="catalog__empty" data-empty hidden>Pagal šiuos filtrus programų neradome. <button class="lnk" type="button" data-f-clear>Išvalyti filtrus</button></p>
+        <p class="catalog__more"><button class="btn btn--line" type="button" data-more hidden>Rodyti daugiau programų</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- XStore: Elementor Heading (teiginys) + Text Editor + 2× Image su „XStore Parallax“; skaičiai – Elementor „Counter“ arba Heading.
+     Papildomai (child theme): teiginio žodžių ryškėjimas slenkant. -->
+<section class="about" id="akademija">
+  <div class="wrap about__grid">
+    <div class="about__copy">
+      <h2 class="statement" data-words>{{ site.statement }}</h2>
+      {% for p in site.about %}
+      <p data-reveal>{{ p }}</p>
+      {% endfor %}
+      <p data-reveal><a class="lnk lnk--arrow" href="#" data-demo="Puslapis „Apie akademiją“ bus sukurtas kitame etape.">Apie akademiją{{ icon('arrow-right') }}</a></p>
+    </div>
+    <div class="about__media">
+      <figure class="about__ph about__ph--a" data-speed="-6">
+        {{ photo('akademija-komanda', 'GK Academy dėstytoja ir mokinės prie stalo mokymų salėje', vw='(min-width: 1000px) 44vw, 92vw') }}
+      </figure>
+      <figure class="about__ph about__ph--b" data-speed="8">
+        {{ photo('akademija-diplomo-pasirasymas', 'Dėstytoja pasirašo diplomą GK Academy registratūroje', vw='(min-width: 1000px) 22vw, 52vw', pos='50% 40%') }}
+      </figure>
+    </div>
+  </div>
+  <div class="wrap">
+    <ul class="facts">
+      {% for f in site.facts %}
+      <li class="fact" data-reveal>
+        <p class="fact__num">{% if f.pre %}<small>{{ f.pre }}</small> {% endif %}<span>{{ f.num }}</span></p>
+        <p class="fact__text">{{ f.text }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- XStore: Elementor Container (2 stulpeliai): Heading + Text Editor + XStore „Icon List“ (sąlygos) + numeruotas sąrašas (žingsniai) + XStore „Text Button“. Telefone – Elementor „Tabs“. -->
+<section class="fin" id="finansavimas">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Mokymus gali finansuoti valstybė'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal>GK Academy bendradarbiauja su Užimtumo tarnyba ir platforma „Kursuok.lt“, todėl mokymams galite gauti iki 100 % finansavimą.</p>
+      </div>
+    </div>
+    <div class="fin__grid">
+      {% for f in site.financing %}
+      <article class="fin__card" data-reveal>
+        <header class="fin__head">
+          <h3>{{ f.name }}</h3>
+          <p class="fin__amount">{{ f.amount }}</p>
+        </header>
+        <p class="fin__lead">{{ f.lead }}</p>
+        <div class="fin__cols">
+          <div>
+            <h4>Kas gali gauti finansavimą</h4>
+            <ul class="ticks">
+              {% for w in f.who %}<li>{{ w }}</li>{% endfor %}
+            </ul>
+          </div>
+          <div>
+            <h4>Kaip užsiregistruoti</h4>
+            <ol class="nums">
+              {% for h in f.how %}<li>{{ h }}</li>{% endfor %}
+            </ol>
+          </div>
+        </div>
+        <p class="fin__foot">
+          <button class="btn btn--line" type="button" data-open="inquiry" data-inquiry="Finansavimas: {{ f.name }}">Paklausti apie finansavimą</button>
+          <a class="lnk lnk--arrow" href="{{ f.link }}" target="_blank" rel="noopener">{{ f.link_name }}{{ icon('arrow-up-right') }}</a>
+        </p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- XStore: „Horizontal Timeline“ (etheme_horizontal_timeline); telefone – „Vertical Timeline“. Papildomai (child theme): auksinė linija, kuri brėžiasi slenkant, ir taškų užsipildymas. -->
+<section class="path" id="kelias">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Nuo registracijos iki diplomo'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal>Registracija vyksta internetu: matote laisvas vietas, pasirenkate datą ir mokėjimo būdą, o patvirtinimą gaunate iškart.</p>
+      </div>
+    </div>
+    <ol class="path__list" data-path>
+      {% for s in site.steps %}
+      <li class="path__step">
+        <span class="path__node" aria-hidden="true"></span>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<!-- XStore: trys Elementor Container stulpeliai su Image valdikliais ir „XStore Parallax“ kiekvienam stulpeliui (arba „Gallery“, etheme_gallery, be paralakso) + „Modal Popup“ (etheme_modal_popup) su Elementor „Video“ valdikliu (vaizdo pristatymas). -->
+<section class="look" id="galerija">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Akademija iš arti'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal>Akimirkos iš mokymų V. Grybo gatvėje Vilniuje. Daugiau nuotraukų ir vaizdo įrašų – paskyroje <a class="lnk" href="{{ site.contacts.instagram }}" target="_blank" rel="noopener">{{ site.contacts.instagram_name }}</a>.</p>
+      </div>
+    </div>
+    <div class="look__cols">
+      {% for col in [1, 2, 3] %}
+      <div class="look__col" data-speed="{{ [-9, 7, -4][loop.index0] }}">
+        {% for g in site.gallery if g.col == col %}
+        <figure class="look__ph" style="aspect-ratio:{{ g.ratio }}">{{ photo(g.img, g.alt, vw='(min-width: 1000px) 30vw, 46vw') }}</figure>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <button class="play" type="button" data-open="video">
+      <span class="play__ring">{{ icon('play-fill') }}</span>
+      <span class="play__text">Žiūrėti akademijos vaizdo pristatymą</span>
+    </button>
+  </div>
+</section>
+
+<!-- XStore: „Testimonials“ (testimonials) tinklelio išdėstymu arba „Google“ / „Facebook“ atsiliepimų įskiepio valdiklis.
+     Tekstai – tikros „Facebook“ rekomendacijos iš dabartinės svetainės puslapio „Atsiliepimai“ (prieš skelbiant reikia autorių sutikimo). -->
+<section class="reviews" id="atsiliepimai">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 data-split>{{ 'Ką sako mokinės'|split }}</h2>
+      <div class="sec-head__side">
+        <p data-reveal>Rekomendacijos iš GK Academy „Facebook“ puslapio.</p>
+      </div>
+    </div>
+    <ul class="reviews__grid">
+      {% for r in site.reviews %}
+      <li class="review" data-reveal>
+        <blockquote>
+          <p>„{{ r.text }}“</p>
+          <footer><cite>{{ r.name }}</cite><span>„Facebook“ rekomendacija</span></footer>
+        </blockquote>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="faqs" id="duk">
+  <div class="wrap faqs__grid">
+    <div class="faqs__head">
+      <h2 data-split>{{ 'Dažni klausimai'|split }}</h2>
+      <p data-reveal>Neradote atsakymo? Skambinkite <a class="lnk" href="tel:{{ site.contacts.phone_href }}">{{ site.contacts.phone }}</a> arba <a class="lnk" href="#kontaktai">parašykite mums</a>.</p>
+    </div>
+    {{ faq_list(site.faq) }}
+  </div>
+</section>
+
+<!-- XStore: XStore „Contact Form 7“ valdiklis (et-contact-form-7) arba Elementor forma („PRO Elements“) + XStore „Icon List“ (kontaktai) + Image. Demo forma nieko nesiunčia. -->
+<section class="contact" id="kontaktai">
+  <div class="wrap contact__grid">
+    <div class="contact__info">
+      <h2 data-split>{{ 'Pasitarkime, kurie mokymai tinka jums'|split }}</h2>
+      <ul class="contact__list" data-reveal>
+        <li>{{ icon('phone') }}<a class="lnk" href="tel:{{ site.contacts.phone_href }}">{{ site.contacts.phone }}</a></li>
+        <li>{{ icon('envelope-simple') }}<a class="lnk" href="mailto:{{ site.contacts.email }}">{{ site.contacts.email }}</a></li>
+        <li>{{ icon('map-pin') }}<a class="lnk" href="{{ site.contacts.map }}" target="_blank" rel="noopener">{{ site.contacts.street }}, {{ site.contacts.city }}, {{ site.contacts.zip }}</a></li>
+      </ul>
+      <figure class="contact__ph" data-reveal>
+        {{ photo('akademija-registratura', 'GK Academy registratūra', vw='(min-width: 1000px) 36vw, 92vw') }}
+      </figure>
+    </div>
+
+    <form class="form contact__form" data-form novalidate data-reveal>
+      <div class="form__row">
+        <label class="field"><span>Vardas</span><input type="text" name="vardas" autocomplete="given-name" required></label>
+        <label class="field"><span>Telefonas</span><input type="tel" name="telefonas" autocomplete="tel" inputmode="tel" required></label>
+      </div>
+      <label class="field"><span>El. paštas</span><input type="email" name="el_pastas" autocomplete="email" required></label>
+      <label class="field"><span>Dominanti programa <em>(neprivaloma)</em></span>
+        <select name="programa">
+          <option value="">Dar nežinau, norėčiau pasitarti</option>
+          {% for cat in site.categories %}
+          <optgroup label="{{ cat.name }}">
+            {% for c in courses if c.cat == cat.id %}<option>{{ c.short }}</option>{% endfor %}
+          </optgroup>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="field"><span>Jūsų klausimas</span><textarea name="zinute" rows="4" required></textarea></label>
+      <label class="check"><input type="checkbox" name="sutikimas" required><span>Sutinku, kad mano duomenys būtų naudojami atsakymui į šią užklausą.</span></label>
+      <button class="btn btn--wide" type="submit">Siųsti klausimą{{ icon('arrow-right') }}</button>
+      <p class="form__ok" role="status" hidden>Ačiū! Tai demo forma, todėl klausimas neišsiųstas. Tikroje svetainėje atsakymą gautumėte el. paštu.</p>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block js %}<script src="assets/js/home.js" defer></script>{% endblock %}
